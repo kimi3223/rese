@@ -10,10 +10,13 @@
 <body>
 
     <header>
-        <div class="header-logo">
-            <a href="{{ url('/') }}"><h1>Rese</h1></a>
-            <img src="/path/to/your/logo.png" alt="Logo" class="logo-image">
+
+        <div class="hamburger-menu">
+            <label for="menu-btn-check" class="menu-btn">
+                <span></span>
+            </label>
         </div>
+        <a href="/" class="company-name">Rese</a>
 
         <!-- 検索ボタン -->
         <span id="searchButton" class="search-button" onclick="toggleSearch()">Search...</span>

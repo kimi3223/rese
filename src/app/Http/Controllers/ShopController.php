@@ -174,6 +174,7 @@ class ShopController extends Controller
             $shop = new Shop();
             $shop->fill($data);
             $shop->save();
+            Shop::create($data);
         }
 
         return 'ショップが作成されました。';

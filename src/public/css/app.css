@@ -1,55 +1,60 @@
 body {
-    background-color: #f5f2f2;
-    font-family: 'Arial', sans-serif;
     margin: 0;
     padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f5f2f2;
 }
 
 header {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 15px;
     background-color: #f5f2f2;
-    color: #fff;
-    padding: 10px 0;
+    color: rgb(57, 59, 187);
 }
 
-.container {
-    width: 80%;
-    margin: 0 auto;
-}
-
-.header-content {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.logo img {
-    width: 50px;
-    /* ロゴのサイズに合わせて調整 */
-}
-
-.company-name h1 {
-    margin: 0;
-}
-
-.search-options {
+.hamburger-menu {
     display: flex;
     align-items: center;
+    margin-right: 15px;
+    /* ハンバーガーメニューと会社名の間の間隔を設定 */
 }
 
-.select-box {
-    margin-right: 10px;
-}
-
-input {
-    padding: 5px;
-    margin-right: 10px;
-}
-
-button {
-    padding: 5px 10px;
-    background-color: #1067f3;
-    color: #fff;
-    border: none;
+.menu-btn {
     cursor: pointer;
+    height: 60px;
+    width: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(57, 59, 187);
+    border-radius: 10%;
+}
+
+.menu-btn span,
+.menu-btn span:before,
+.menu-btn span:after {
+    content: '';
+    display: block;
+    height: 3px;
+    width: 25px;
+    border-radius: 1px;
+    background-color: #ffffff;
+    position: absolute;
+}
+
+.menu-btn span:before {
+    bottom: 8px;
+    width: 50%;
+}
+
+.menu-btn span:after {
+    top: 8px;
+    width: 25%;
+}
+
+company-name {
+    font-size: 2rem;
 }
 
