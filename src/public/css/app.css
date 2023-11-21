@@ -1,0 +1,55 @@
+body {
+    background-color: #f5f2f2;
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #f5f2f2;
+    color: #fff;
+    padding: 10px 0;
+}
+
+.container {
+    width: 80%;
+    margin: 0 auto;
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo img {
+    width: 50px;
+    /* ロゴのサイズに合わせて調整 */
+}
+
+.company-name h1 {
+    margin: 0;
+}
+
+.search-options {
+    display: flex;
+    align-items: center;
+}
+
+.select-box {
+    margin-right: 10px;
+}
+
+input {
+    padding: 5px;
+    margin-right: 10px;
+}
+
+button {
+    padding: 5px 10px;
+    background-color: #1067f3;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+

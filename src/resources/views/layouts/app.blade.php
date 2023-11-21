@@ -5,14 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title')</title>
     <link rel="stylesheet" href="{{ asset('css/sanitize.css') }}">
-    <!--<link rel="stylesheet" href="{{ asset('css/css') }}">
-    ここにCSSファイルのリンクやスタイルの設定を追加 -->
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 </head>
 <body>
 
     <header>
         <div class="header-logo">
-            <a href="{{ url('/') }}"><h1>RESE</h1></a>
+            <a href="{{ url('/') }}"><h1>Rese</h1></a>
             <img src="/path/to/your/logo.png" alt="Logo" class="logo-image">
         </div>
 
