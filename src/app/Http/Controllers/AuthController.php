@@ -7,6 +7,8 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 
 class AuthController extends Controller
 {
+    protected $redirectTo = '/thanks';
+
     public function showLoginForm()
     {
     return view('auth.login');
@@ -25,5 +27,10 @@ class AuthController extends Controller
     public function login()
     {
     return view('auth.login');
+    }
+
+    public function thanks()
+    {
+        return view('auth.thanks'); // 'thanks.blade.php' ビューを表示
     }
 }

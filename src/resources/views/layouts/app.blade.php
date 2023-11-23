@@ -10,12 +10,18 @@
 <body>
 
     <header>
-
         <div class="hamburger-menu">
             <label for="menu-btn-check" class="menu-btn">
                 <span></span>
             </label>
         </div>
+        @if (Auth::check())
+        <div class="hamburger-menu">
+            <label for="menu-btn-check" class="menu-btn">
+                <span></span>
+            </label>
+        </div>
+        @endif
         <a href="/" class="company-name">Rese</a>
 
         <!-- 検索ボタン -->

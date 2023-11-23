@@ -4,7 +4,6 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ShopController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\PageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,7 +25,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/detail/{shop_id}', [ShopController::class, 'detail']);
     Route::get('/mypage', [UserController::class, 'showMyPage']);
     Route::get('/done', [ReservationController::class, 'showReservationDonePage']);
-    Route::get('/thanks', [PageController::class, 'thanks']);
 });
 
 // ユーザー登録
@@ -36,3 +34,6 @@ Route::post('/register', [AuthController::class, 'register']);
 // ログイン
 Route::get('/login', [AuthController::class, 'showLoginForm']);
 Route::post('/login', [AuthController::class, 'login']);
+
+Auth::routes();
+Route::get('/thanks', [AuthController::class, 'thanks'])->name('thanks');
