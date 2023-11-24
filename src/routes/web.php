@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ShopController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\FavoriteController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,6 +21,9 @@ use App\Http\Controllers\UserController;
 Route::get('/', [ShopController::class, 'index']);
 Route::get('/create-shops', [ShopController::class, 'createShops']);
 
+Route::get('/shops', [ShopController::class, 'index']);
+Route::get('/shops/{id}', [ShopController::class, 'show'])->name('shops.show');
+
 // 飲食店詳細表示（ログインが必要）
 Route::middleware('auth')->group(function () {
     Route::get('/detail/{shop_id}', [ShopController::class, 'detail']);
@@ -35,5 +39,10 @@ Route::post('/register', [AuthController::class, 'register']);
 Route::get('/login', [AuthController::class, 'showLoginForm']);
 Route::post('/login', [AuthController::class, 'login']);
 
+Route::get('/logout', [AuthController::class, 'logout']);
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
 Auth::routes();
 Route::get('/thanks', [AuthController::class, 'thanks'])->name('thanks');
+
+Route::post('/favorites', [FavoriteController::class, 'store'])->name('favorites.store');

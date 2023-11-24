@@ -10,18 +10,18 @@ class ShopController extends Controller
     public function index()
     {
         $shops = Shop::all();
-        return view('shops.index', ['shops' => $shops]);
+        return view('shops.index', compact('shops'));
     }
 
     public function show($id)
     {
-        $shop = Shop::find($id);
+        $shop = Shop::findOrFail($id);
 
         if (!$shop) {
             abort(404, 'ショップが見つかりません。');
         }
 
-        return view('shop.show', ['shop' => $shop]);
+        return view('shop.show', compact('shop'));
     }
 
     public function createShops()

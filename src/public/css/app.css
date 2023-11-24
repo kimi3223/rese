@@ -58,3 +58,131 @@ company-name {
     font-size: 2rem;
 }
 
+.navbar-toggler .menu-btn {
+    cursor: pointer;
+    height: 60px;
+    width: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(57, 59, 187);
+    border-radius: 10%;
+}
+
+.navbar-toggler .menu-btn span,
+.navbar-toggler .menu-btn span:before,
+.navbar-toggler .menu-btn span:after {
+    content: '';
+    display: block;
+    height: 3px;
+    width: 25px;
+    border-radius: 1px;
+    background-color: #ffffff;
+    position: absolute;
+}
+
+.navbar-toggler .menu-btn span:before {
+    bottom: 8px;
+    width: 50%;
+}
+
+.navbar-toggler .menu-btn span:after {
+    top: 8px;
+    width: 25%;
+}
+
+/* ハンバーガーメニューのボーダーを削除 */
+.navbar-toggler {
+    border: none;
+    outline: none;
+}
+
+/* ハンバーガーメニューのアクティブな状態の背景を削除 */
+.navbar-toggler:focus {
+    background-color: transparent;
+    border-color: transparent;
+    box-shadow: none;
+}
+
+.shop-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.shop-item {
+    width: 200px;
+    /* 正方形の一辺の長さ */
+    border: 1px solid #ddd;
+    /* ボーダーを追加 */
+    margin: 10px;
+    padding: 10px;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+.shop-item img {
+    max-width: 100%;
+    /* 画像をボックスに収める */
+    height: auto;
+    /* アスペクト比を保つ */
+    margin-bottom: 10px;
+}
+
+.shop-details {
+    margin-top: 10px;
+    flex-direction: column;
+}
+
+.shop-details h2 {
+    font-size: 1.2em;
+    margin-bottom: 5px;
+    text-align: left;
+}
+
+.shop-details p {
+    margin: 0;
+}
+
+.shop-details .area-genre {
+    display: flex;
+}
+
+.shop-details a {
+    display: block;
+    margin-top: 10px;
+    text-decoration: none;
+    background-color: #3490dc;
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+.shop-details .shop-name,
+.shop-details .area-genre {
+    text-align: left;
+}
+
+.favorite-button {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.favorite-button::before {
+    content: '\2764';
+    /* ハートの Unicode 文字コード */
+    position: absolute;
+    top: 0;
+    color: red;
+    /* ハートの色 */
+}
+
+.favorite-button::before {
+    left: 0;
+}
+
+.favorite-button::after {
+    left: 10px;
+    /* ハート同士の間隔を調整 */
+}

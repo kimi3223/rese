@@ -7,6 +7,8 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 
 class AuthController extends Controller
 {
+    use RegistersUsers, LogoutUsers;
+
     protected $redirectTo = '/thanks';
 
     public function showLoginForm()
