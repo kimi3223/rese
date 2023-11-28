@@ -9,9 +9,8 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">会員登録ありがとうございます</div>
-
                     <div class="card-body">
+                        <p>会員登録ありがとうございます</p>
                         <a href="{{ route('login') }}">ログインする</a>
                     </div>
                 </div>

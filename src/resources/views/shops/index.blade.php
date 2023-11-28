@@ -12,15 +12,22 @@
                     <p># {{ $shop->region }}</p>
                     <p># {{ $shop->genre }}</p>
                 </div>
-                <a href="{{ route('shops.show', $shop->id) }}">詳しくみる</a>
-                <!-- お気に入りボタン -->
-                <a href="#" class="favorite-button" data-shop-id="{{ $shop->id }}">
-                    <i class="fas fa-heart"></i>
-                </a>
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <!-- 詳しく見るボタン -->
+                    <a href="{{ route('shops.show', $shop->id) }}" style="text-decoration: none;">
+                        <button type="button" class="btn btn-primary">詳しくみる</button>
+                    </a>
+                    <!-- お気に入りボタン -->
+                    <a href="#" class="favorite-button" data-shop-id="{{ $shop->id }}">
+                        <i class="fas fa-heart"></i>
+                    </a>
+                </div>
             </div>
         </div>
+    @endforeach
+</div>
 
-        <!-- JavaScriptの例（JQueryを使用） -->
+<!-- JavaScriptの例（JQueryを使用） -->
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script>
     $(document).ready(function () {
@@ -37,9 +44,5 @@
         });
     });
 </script>
-
-    @endforeach
-</div>
-
 
 @endsection

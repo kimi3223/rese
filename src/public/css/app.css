@@ -1,17 +1,76 @@
 body {
     margin: 0;
-    padding: 0;
     font-family: Arial, sans-serif;
-    background-color: #f5f2f2;
 }
 
 header {
+    background-color: #f8f9fa;
+    padding: 10px;
+}
+
+nav {
     display: flex;
-    justify-content: flex-start;
+    justify-content: space-between;
     align-items: center;
-    padding: 15px;
-    background-color: #f5f2f2;
-    color: rgb(57, 59, 187);
+}
+
+.navbar-brand {
+    font-size: 1.5rem;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+}
+
+nav li {
+    margin-right: 15px;
+}
+
+nav a {
+    text-decoration: none;
+    color: #007bff;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+
+nav a:hover {
+    color: #0056b3;
+}
+
+/* ハンバーガーメニューのスタイル */
+.menu-btn {
+    cursor: pointer;
+    display: none;
+    /* 初期状態では非表示 */
+}
+
+@media (max-width: 768px) {
+    .menu-btn {
+        display: block;
+        /* 768px以下で表示 */
+    }
+
+    nav ul {
+        display: none;
+        /* 768px以下で非表示 */
+        flex-direction: column;
+        background-color: #f8f9fa;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        width: 100%;
+        padding: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    nav ul.show {
+        display: flex;
+        /* ハンバーガーメニューがクリックされたときに表示 */
+    }
 }
 
 .hamburger-menu {
@@ -152,9 +211,8 @@ company-name {
     display: block;
     margin-top: 10px;
     text-decoration: none;
-    background-color: #3490dc;
     color: #fff;
-    padding: 5px 10px;
+    padding: 5px 1px;
     border-radius: 5px;
 }
 
@@ -172,17 +230,38 @@ company-name {
 .favorite-button::before {
     content: '\2764';
     /* ハートの Unicode 文字コード */
-    position: absolute;
     top: 0;
     color: red;
     /* ハートの色 */
 }
 
 .favorite-button::before {
-    left: 0;
+    right: 0;
+    font-size: 2rem;
 }
 
 .favorite-button::after {
     left: 10px;
     /* ハート同士の間隔を調整 */
+}
+
+.menu-content {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    border: 1px solid #ddd;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
+
+.main-content {
+    display: block;
+}
+
+.main-content.show {
+    display: none;
 }

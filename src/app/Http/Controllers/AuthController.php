@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\RegistersUsers;
 
 class AuthController extends Controller
 {
-    use RegistersUsers, LogoutUsers;
+    use RegistersUsers;
+    use LogoutUsers;
 
     protected $redirectTo = '/thanks';
 

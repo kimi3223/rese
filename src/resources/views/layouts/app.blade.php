@@ -6,68 +6,76 @@
     <title>@yield('title')</title>
     <link rel="stylesheet" href="{{ asset('css/sanitize.css') }}">
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-    <!-- Bootstrap CSS CDN -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <!-- Bootstrap JavaScript CDN (Popper.jsおよびBootstrap JS) -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </head>
 <body>
 <header>
-<!-- Bootstrapのナビゲーションバー -->
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-
   <!-- メニューボタン（.menu-btn） -->
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" style="border: none; outline: none;">
+  <button id="menu-toggle" style="border: none; outline: none;">
     <div class="menu-btn">
       <span></span>
     </div>
   </button>
 
-  <!-- ナビゲーションバーのコンテンツ -->
-  <div class="collapse navbar-collapse" id="navbarNav">
-    <ul class="navbar-nav">
-      <li class="nav-item active">
-        <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
-      </li>
-      @if (Auth::check())
-      <li class="nav-item active">
-        <a class="nav-link" href="/logout">Logout <span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item active">
-        <a class="nav-link" href="/mypage">Mypage <span class="sr-only">(current)</span></a>
-      </li>
-      @else
-      <li class="nav-item active">
-        <a class="nav-link" href="/register">Register <span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item active">
-        <a class="nav-link" href="/login">Login <span class="sr-only">(current)</span></a>
-      </li>
-      @endif
-      <!-- 他のメニューアイテムを追加 -->
-    </ul>
-  </div>
-</nav>
+  <!-- ハンバーガーメニューの内容 -->
+    <div id="menu-content" style="display: none;">
+        <ul class="navbar-nav">
+            <li class="nav-item active">
+                <a class="nav-link" href="/">Home <span class="sr-only"></span></a>
+            </li>
+            <!-- 以下はログイン状態に応じて表示されるボタン -->
+            @if (Auth::check())
+            <li class="nav-item active">
+              <form method="POST" action="{{ route('logout') }}">
+                @csrf
+                <button type="submit" class="nav-link" style="border: none; background: none; cursor: pointer;">Logout <span class="sr-only"></span></button>
+              </form>
+            </li>
+            <li class="nav-item active after-login">
+                <a class="nav-link" href="/mypage">Mypage <span class="sr-only"></span></a>
+            </li>
+            @else
+            <li class="nav-item active before-login">
+                <a class="nav-link" href="/register">Register <span class="sr-only"></span></a>
+            </li>
+            <li class="nav-item active before-login">
+                <a class="nav-link" href="/login">Login <span class="sr-only"></span></a>
+            </li>
+            @endif
+            <!-- ここまで -->
+        </ul>
+    </div>
 </header>
 
-    <!-- 検索フォーム -->
-    <div id="searchForm" style="display: none;">
-        <!-- ここに検索フォームのHTMLを追加 -->
-        <!-- 例: <form action="{{ url('/search') }}" method="get">...</form> -->
-        <!-- ここに検索ボタンや入力フィールドを配置してください -->
-    </div>
+<!-- ページ遷移用のJavaScript -->
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script>
+  $(document).ready(function() {
+        // ハンバーガーメニューのトグル
+        $("#menu-toggle").click(function() {
+            // メニューコンテンツを表示または非表示に切り替える
+            $("#menu-content").toggle();
+            
+            // メインコンテンツの表示切り替え
+            $("#main-content").toggleClass("hide");
+        });
+    });
 
-    <!-- コンテンツ部分 -->
+     function showContent(content) {
+        // ここでcontentに応じて表示すべきコンテンツを切り替えるロジックを記述
+        // 例えば、contentが'home'ならHomeのコンテンツを表示、'register'ならRegisterのコンテンツを表示、といった具体的な処理を記述する
+        alert('Button clicked: ' + content);
+        
+        // メニューを非表示にする（任意）
+        $("#menu-content").hide();
+        
+        // メインコンテンツを表示する
+        $("#main-content").removeClass("hide");
+    }
+</script>
+
+<!-- コンテンツ部分 -->
+<div id="main-content">
     @yield('content')
-
-    <!-- JavaScriptの例 -->
-    <script>
-        function toggleSearch() {
-            var searchForm = document.getElementById('searchForm');
-            searchForm.style.display = (searchForm.style.display === 'none') ? 'block' : 'none';
-        }
-    </script>
+</div>
 </body>
 </html>
