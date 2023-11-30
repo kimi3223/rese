@@ -1,7 +1,28 @@
-.login-form__content {
-    margin: 0 auto;
-    padding: 30px 15px;
-    max-width: 1230px;
+body {
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+}
+
+fieldset {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    width: 50%;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+h2 {position: relative;
+width: 100%;
+display: block;
+padding: 5px;
+font-size: 20px;
+}
+
+.login__content {
+    justify-content: center;
+    text-align: center;
 }
 
 .login-form__heading {
@@ -9,18 +30,22 @@
     text-align: center;
 }
 
+.login-form__heading h2 {
+    margin: 0;
+}
+
 .form {
-    margin: 0 auto;
-    width: 25%;
+    width: 50%;
+    margin-top: 20px;
     text-align: center;
 }
 
 .form__group {
-    margin-bottom: 5px;
+    margin-bottom: 20px;
 }
 
 .form__group-title {
-    text-align: left;
+    margin-bottom: 5px;
 }
 
 .form__error {
@@ -29,13 +54,23 @@
     text-align: left;
 }
 
+.form__label--item {
+    font-weight: bold;
+}
+
+.form__input--text {
+    width: 100%;
+    margin: 0 auto;
+    padding: 8px;
+    box-sizing: border-box;
+}
+
 .form__input--text input {
     padding: 10px;
     width: 100%;
     height: 40px;
     border: 1px solid #ddd;
     border-radius: 3px;
-
     appearance: none;
 }
 
@@ -45,16 +80,49 @@
 
 .form__button-submit {
     padding: 10px;
-    width: 30%;
-    height: 50px;
     border: none;
     border-radius: 3px;
-    background: #000;
+    background: blue;
     color: #fff;
     cursor: pointer;
+}
+
+.form__button-submit:hover {
+    background-color: #0056b3;
 }
 
 .register__link {
     margin-top: 20px;
     text-align: center;
+}
+
+.form__input--text input {
+    padding: 10px;
+    width: 100%;
+    height: 40px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    appearance: none;
+}
+
+.form__icon {
+    position: absolute;
+    margin-top: 12px;
+    margin-left: 10px;
+    color: #555;
+    /* アイコンの色 */
+    font-size: 18px;
+    /* アイコンのサイズ */
+}
+
+/* メールアイコンのスタイル */
+.form__email-icon::before {
+    font-family: 'Material Icons';
+    content: 'email';
+}
+
+/* パスワードアイコンのスタイル */
+.form__password-icon::before {
+    font-family: 'Material Icons';
+    content: 'lock';
 }
