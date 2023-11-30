@@ -3,11 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Rese</title>
     <link rel="stylesheet" href="{{ asset('css/sanitize.css') }}">
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <link rel="stylesheet" href="{{ asset('css/login.css') }}">
     <link rel="stylesheet" href="{{ asset('css/thanks.css') }}">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script>
+        function closeModal() {
+            // モーダルを非表示
+            document.getElementById('modal-overlay').style.display = 'none';
+            document.getElementById('modal').style.display = 'none';
+
+            // ハンバーガーアイコンと×アイコンを切り替える
+            document.querySelector('.menu-btn i').classList.toggle('fa-bars');
+            document.querySelector('.menu-btn i').classList.toggle('fa-times');
+        }
+    </script>
 </head>
 <style>
   #modal-overlay {
@@ -31,6 +46,15 @@
     display: none; /* 最初は非表示 */
 }
 
+#back-to-home {
+    cursor: pointer; /* カーソルをポインターに変更 */
+    font-size: 1.5em; /* フォントサイズを調整 */
+    margin-left: 10px; /* 左に余白を追加 */
+    margin-top: 10px; /* 上に余白を追加 */
+    text-decoration: none; /* リンクの下線を非表示 */
+    color: black; /* テキストの色を指定 */
+  }
+
 </style>
 <body>
 <header>
@@ -38,12 +62,14 @@
     <button id="menu-toggle" style="border: none; outline: none;">
         <div class="menu-btn">
             <span></span>
+            <i class="fas fa-times"></i>
         </div>
     </button>
 
     <!-- ハンバーガーメニューの内容 -->
     <div id="modal-overlay" style="display: none;">
         <div id="modal" style="display: none;">
+          <a id="back-to-home" onclick="closeModal()">×</a>
             <ul class="navbar-nav">
                 <li class="nav-item active">
                     <a class="nav-link" href="/">Home <span class="sr-only"></span></a>
@@ -57,14 +83,14 @@
                     </form>
                 </li>
                 <li class="nav-item active after-login">
-                    <a class="nav-link" href="/mypage">Mypage <span class="sr-only"></span></a>
+                    <a class="nav-link" href="/mypage" >Mypage <span class="sr-only"></span></a>
                 </li>
                 @else
                 <li class="nav-item active before-login">
-                    <a class="nav-link" href="/register">Register <span class="sr-only"></span></a>
+                    <a class="nav-link" href="/register" >Register <span class="sr-only"></span></a>
                 </li>
                 <li class="nav-item active before-login">
-                    <a class="nav-link" href="/login">Login <span class="sr-only"></span></a>
+                    <a class="nav-link" href="/login" >Login <span class="sr-only"></span></a>
                 </li>
                 @endif
                 <!-- ここまで -->
@@ -79,8 +105,16 @@
     $(document).ready(function() {
         $("#menu-toggle").click(function() {
             // モーダルを表示
-            $("#modal-overlay").show();
-            $("#modal").show();
+            $("#modal-overlay").toggle();
+            $("#modal").toggle();
+
+            // ハンバーガーアイコンと×アイコンを切り替える
+            $(".menu-btn i").toggleClass("fa-bars fa-times");
+        });
+
+        $("#close-modal").click(function() {
+            // ×アイコンをクリックしたら閉じる
+            closeModal();
         });
 
         $("#modal-overlay").click(function(event) {
@@ -94,6 +128,9 @@
             // モーダルを非表示
             $("#modal-overlay").hide();
             $("#modal").hide();
+
+            // ハンバーガーアイコンと×アイコンを切り替える
+            $(".menu-btn i").toggleClass("fa-bars fa-times");
         }
 
         // メニュー項目がクリックされたときにもモーダルを非表示にする

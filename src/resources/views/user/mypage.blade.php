@@ -1,0 +1,58 @@
+@extends('layouts.app')
+
+@section('content')
+
+
+
+<div style="display: flex;">
+
+        <!-- 左半分 - 予約状況 -->
+        <div style="width: 50%; padding-right: 20px;">
+            <h3>予約状況</h3>
+
+            <!-- 予約1のカード（サンプルデータ） -->
+            <div style="border: 1px solid #ccc; padding: 10px; margin-bottom: 20px;">
+                <h4>予約1</h4>
+                <p>ショップ名: サンプル店舗</p>
+                <p>予約日付: 2023-12-01</p>
+                <p>予約時間: 18:00</p>
+                <p>人数: 2人</p>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <!-- 右半分：お気に入り店舗 -->
+            <h4>{{ $userInfo->name }}さん</h4>
+            <h4>お気に入り店舗</h4>
+            @if($favoriteShops->isEmpty())
+                <p>お気に入りの店舗はありません。</p>
+            @else
+                <div class="shop-list">
+                    @foreach($favoriteShops as $favorite)
+                        <div class="shop-item">
+                            <img src="{{ $favorite->shop->image_url }}" alt="{{ $favorite->shop->name }}">
+                            <div class="shop-details">
+                                <h2>{{ $favorite->shop->name }}</h2>
+                                <div class="area-genre">
+                                    <p># {{ $favorite->shop->region }}</p>
+                                    <p># {{ $favorite->shop->genre }}</p>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <!-- 詳しく見るボタン -->
+                                    <a href="{{ route('shops.show', $favorite->shop->id) }}" style="text-decoration: none;">
+                                        <button type="button" class="btn btn-primary">詳しくみる</button>
+                                    </a>
+                                    <!-- お気に入りボタン -->
+                                    <a href="#" class="favorite-button" data-shop-id="{{ $favorite->shop->id }}">
+                                        <i class="fas fa-heart"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+            @endif
+        </div>
+    </div>
+@endsection
+
+

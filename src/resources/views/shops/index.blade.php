@@ -37,9 +37,18 @@
             var shopId = $(this).data('shop-id');
 
             // Ajaxを使用してお気に入りの追加をリクエスト
-            $.post('{{ route('favorites.store') }}', { shop_id: shopId }, function (data) {
-                // 追加が成功した場合の処理
-                alert('お気に入りに追加しました！');
+            var csrfToken = $('meta[name="csrf-token"]').attr('content');
+
+            $.ajax({
+                url: '{!! route('favorites.store') !!}',
+                type: 'POST',
+                data: {
+                shop_id: shopId,
+                _token: csrfToken
+                },
+                success: function (data) {
+                    alert('お気に入りに追加しました！');
+                }
             });
         });
     });
