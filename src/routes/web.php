@@ -6,6 +6,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\ReservationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,13 +24,15 @@ Route::get('/', [ShopController::class, 'index']);
 Route::get('/create-shops', [ShopController::class, 'createShops']);
 
 Route::get('/shops', [ShopController::class, 'index']);
-Route::get('/shops/{id}', [ShopController::class, 'show'])->name('shops.show');
 
 // 飲食店詳細表示（ログインが必要）
 Route::middleware('auth')->group(function () {
-    Route::get('/detail/{shop_id}', [ShopController::class, 'detail']);
+    Route::get('/detail/{shop_id}', [ShopController::class, 'detail'])->name('shops.detail');
     Route::get('/mypage', [UserController::class, 'showMyPage']);
     Route::get('/done', [ReservationController::class, 'showReservationDonePage']);
+    Route::post('/reservations/store/{shopId}', [ReservationController::class, 'store'])->name('reservations.store');
+    Route::get('/shops/show/{id}', [ShopController::class, 'show'])->name('shops.show');
+    Route::delete('/reservations/{reservationId}', [ReservationController::class, 'destroy'])->name('reservations.destroy');
 });
 
 // ユーザー登録

@@ -1,36 +1,69 @@
 @extends('layouts.app')
 
-@section('css')
-<link rel="stylesheet" href="{{ asset('css/detail.css') }}">
-@endsection
-
 @section('content')
-    <div class="container">
-        <div class="row">
-            <div class="col-md-6">
-                <!-- ここに店舗の詳細情報と画像を表示 -->
-            </div>
-            <div class="col-md-6">
-                <!-- お気に入りボタン -->
-                <button class="btn btn-outline-danger" id="favoriteButton">お気に入りに追加</button>
-                <!-- マイページへのリンク -->
-                <a href="{{ route('mypage') }}" class="btn btn-primary">マイページ</a>
-            </div>
+    <div style="display: flex;">
+        <!-- 左側：店の詳細情報 -->
+        <div style="flex: 1; padding: 20px;">
+            <h2>{{ $shop->name }}</h2>
+            <img src="{{ $shop->image_url }}" alt="{{ $shop->name }}" style="max-width: 100%;">
+            <p>{{ $shop->description }}</p>
+        </div>
+
+        <!-- 右側：予約フォーム -->
+        <div id="reservationForm" style="flex: 1; padding: 20px; border: 1px solid #ccc; border-radius: 10px;">
+            <h3>予約</h3> <!-- 予約のタイトルを追加 -->
+                <!-- 日付選択 -->
+                <label for="reservation_date">日付：</label>
+                <input type="date" id="reservation_date" name="reservation_date" required onchange="updateReservationDetails()">
+                <br>
+
+                <!-- 時間選択 -->
+                <label for="reservation_time">時間：</label>
+                <input type="time" id="reservation_time" name="reservation_time" required onchange="updateReservationDetails()">
+                <br>
+
+                <!-- 人数選択 -->
+                <label for="number_of_people">人数：</label>
+                <input type="number" id="number_of_people" name="number_of_people" min="1" required onchange="updateReservationDetails()">
+                <br>
+
+                <!-- 予約確認 -->
+                <div id="reservationDetailsContainer">
+                    <p>予約確認：</p>
+                    <div id="reservationDetails" style="border: 1px solid #ddd; padding: 10px; border-radius: 5px; margin-top: 10px;">
+                        <!-- ここに予約内容の確認を表示 -->
+                    </div>
+                </div>
+
+                <!-- 予約ボタン -->
+                <form method="POST" action="{{ route('reservations.store', ['shopId' => $shop->id]) }}">
+                    @csrf
+                    <!-- フォームのフィールドはここに記述 -->
+                    <button type="submit">予約する</button>
+                </form>
         </div>
     </div>
 
-    <!-- JavaScriptの例（JQueryを使用） -->
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script>
-        $(document).ready(function () {
-            // お気に入りボタンのクリックイベント
-            $('#favoriteButton').click(function () {
-                // ここにお気に入り追加の処理を追加
-                $.post('{{ route('favorite.add', ['id' => $shop->id]) }}', function (data) {
-                    // 追加が成功した場合の処理
-                    alert('お気に入りに追加しました！');
-                });
-            });
-        });
+    document.addEventListener('DOMContentLoaded', function () {
+        // DOMが完全に読み込まれたときにイベントリスナーを追加する
+        document.getElementById('reservation_date').addEventListener('change', updateReservationDetails);
+        document.getElementById('reservation_time').addEventListener('change', updateReservationDetails);
+        document.getElementById('number_of_people').addEventListener('change', updateReservationDetails);
+    });
+
+    function updateReservationDetails() {
+        // 選択された日付、時間、人数を取得
+        var selectedDate = document.getElementById('reservation_date').value;
+        var selectedTime = document.getElementById('reservation_time').value;
+        var numberOfPeople = document.getElementById('number_of_people').value;
+
+        // 予約確認エリアを更新
+        document.getElementById('reservationDetails').innerHTML = `
+            <p>日付: ${selectedDate}</p>
+            <p>時間: ${selectedTime}</p>
+            <p>人数: ${numberOfPeople}人</p>
+        `;
+    }
     </script>
 @endsection

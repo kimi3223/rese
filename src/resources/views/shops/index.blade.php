@@ -14,7 +14,7 @@
                 </div>
                 <div style="display: flex; justify-content: space-between; align-items: center;">
                     <!-- 詳しく見るボタン -->
-                    <a href="{{ route('shops.show', $shop->id) }}" style="text-decoration: none;">
+                    <a href="{{ route('shops.detail', ['shop_id' => $shop->id]) }}" style="text-decoration: none;">
                         <button type="button" class="btn btn-primary">詳しくみる</button>
                     </a>
                     <!-- お気に入りボタン -->
@@ -34,22 +34,29 @@
         // お気に入りボタンのクリックイベント
         $('.favorite-button').click(function (e) {
             e.preventDefault();
-            var shopId = $(this).data('shop-id');
 
-            // Ajaxを使用してお気に入りの追加をリクエスト
-            var csrfToken = $('meta[name="csrf-token"]').attr('content');
+            // ログイン状態を確認
+            @auth
+                var shopId = $(this).data('shop-id');
 
-            $.ajax({
-                url: '{!! route('favorites.store') !!}',
-                type: 'POST',
-                data: {
-                shop_id: shopId,
-                _token: csrfToken
-                },
-                success: function (data) {
-                    alert('お気に入りに追加しました！');
-                }
-            });
+                // Ajaxを使用してお気に入りの追加をリクエスト
+                var csrfToken = $('meta[name="csrf-token"]').attr('content');
+
+                $.ajax({
+                    url: '{!! route('favorites.store') !!}',
+                    type: 'POST',
+                    data: {
+                        shop_id: shopId,
+                        _token: csrfToken
+                    },
+                    success: function (data) {
+                        alert('お気に入りに追加しました！');
+                    }
+                });
+            @else
+                // ログインしていない場合はログイン画面にリダイレクト
+                window.location.href = '{{ route('login') }}';
+            @endauth
         });
     });
 </script>

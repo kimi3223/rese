@@ -24,6 +24,15 @@ class ShopController extends Controller
         return view('shop.show', compact('shop'));
     }
 
+    public function detail($shop_id)
+    {
+        // $id に基づいてデータを取得
+        $shop = Shop::find($shop_id);
+
+        // 必要に応じてビューを返す
+        return view('shops.detail', compact('shop'));
+    }
+
     public function createShops()
     {
         $shopData = [
