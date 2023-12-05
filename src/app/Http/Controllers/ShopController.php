@@ -7,9 +7,31 @@ use App\Models\Shop;
 
 class ShopController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $shops = Shop::all();
+        // フォームから送信された検索条件を取得
+        $area = $request->input('area');
+        $category = $request->input('category');
+        $keyword = $request->input('keyword');
+
+        // クエリビルダを使って検索条件に合致するデータを取得
+        $query = Shop::query();
+
+        if ($area && $area !== 'All area') {
+            $query->where('region', $area);
+        }
+
+        if ($category && $category !== 'All genre') {
+            $query->where('genre', $category);
+        }
+
+        if ($keyword) {
+            $query->where('name', 'like', '%' . $keyword . '%');
+        }
+
+        // 取得したデータをビューに渡す
+        $shops = $query->get();
+
         return view('shops.index', compact('shops'));
     }
 
@@ -180,9 +202,6 @@ class ShopController extends Controller
         ];
 
         foreach ($shopData as $data) {
-            $shop = new Shop();
-            $shop->fill($data);
-            $shop->save();
             Shop::create($data);
         }
 

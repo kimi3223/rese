@@ -11,14 +11,14 @@ class ReservationController extends Controller
     public function store(Request $request, $shopId)
     {
         $validatedData = $request->validate([
-            'reservation_date' => 'required|date',
-            'reservation_time' => 'required|date_format:H:i',
+            'shop_date' => 'required|date',  // フィールド名修正
+            'shop_time' => 'required|date_format:H:i',  // フィールド名修正
             'number_of_people' => 'required|integer|min:1',
         ]);
 
         $reservation = new Reservation([
-            'reservation_date' => $validatedData['reservation_date'],
-            'reservation_time' => $validatedData['reservation_time'],
+            'shop_date' => $validatedData['shop_date'],
+            'shop_time' => $validatedData['shop_time'],
             'number_of_people' => $validatedData['number_of_people'],
             'user_id' => Auth::id(),
             'shop_id' => $shopId,

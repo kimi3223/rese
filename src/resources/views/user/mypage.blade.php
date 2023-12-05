@@ -2,8 +2,6 @@
 
 @section('content')
 
-
-
 <div style="display: flex;">
 
     <!-- 左半分 - 予約状況 -->

@@ -1,6 +1,9 @@
 body {
     margin: 0;
     font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+    margin-right: 20px;
+    margin-left: 20px;
 }
 
 header {
@@ -10,7 +13,7 @@ header {
 
 nav {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: center;
 }
 
@@ -20,7 +23,6 @@ nav {
 
 nav ul {
     list-style: none;
-    display: flex;
     margin: 0;
     padding: 0;
 }
@@ -31,11 +33,18 @@ nav li {
 
 nav a {
     text-decoration: none;
-    color: #007bff;
+    color: blue;
     font-weight: bold;
     transition: color 0.3s ease;
 }
 
+.button-class {
+    border-radius: 5px;
+    background: blue;
+    color: white;
+    /* 丸みの度合いを調整 */
+    /* その他のスタイルプロパティ */
+}
 
 nav a:hover {
     color: #0056b3;
@@ -45,6 +54,7 @@ nav a:hover {
 .menu-btn {
     cursor: pointer;
     display: none;
+    margin-left: 10px;
     /* 初期状態では非表示 */
 }
 
@@ -82,12 +92,12 @@ nav a:hover {
 
 .menu-btn {
     cursor: pointer;
-    height: 60px;
-    width: 60px;
+    height: 50px;
+    width: 50px;
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: rgb(57, 59, 187);
+    background-color: blue;
     border-radius: 10%;
 }
 
@@ -113,7 +123,7 @@ nav a:hover {
     width: 25%;
 }
 
-company-name {
+.company-name {
     font-size: 2rem;
 }
 
@@ -175,9 +185,10 @@ company-name {
     border: 1px solid #ddd;
     /* ボーダーを追加 */
     margin: 10px;
-    padding: 10px;
     text-align: center;
     box-sizing: border-box;
+    border-radius: 5px;
+    background-color: white;
 }
 
 .shop-item img {
@@ -186,6 +197,9 @@ company-name {
     height: auto;
     /* アスペクト比を保つ */
     margin-bottom: 10px;
+    border-top-left-radius: 5px;
+        /* 左上の角の丸みを調整 */
+    border-top-right-radius: 5px;
 }
 
 .shop-details {
@@ -205,6 +219,7 @@ company-name {
 
 .shop-details .area-genre {
     display: flex;
+    padding: 5px;
 }
 
 .shop-details a {
