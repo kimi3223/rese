@@ -20,13 +20,12 @@
     h1 {
         margin: 0; /* マージンを無効にする */
         background: blue;
-        padding: 20px 0;
-        font-size: 140%;
+        padding: 5px;
+        font-size: 120%;
         font-weight: 300;
-        text-align: center;
         color: #fff;
-        border-top-left-radius: 10px;
-        border-top-right-radius: 10px;
+        border-top-left-radius: 5px;
+        border-top-right-radius: 5px;
     }
     #modal-overlay {
         position: fixed;
@@ -36,6 +35,7 @@
         height: 100%;
         background-color: white;
         z-index: 1000;
+        display: none;
     }
 
     #modal {
@@ -47,6 +47,7 @@
         padding: 20px;
         z-index: 1001;
         display: none;
+        box-sizing: border-box;
     }
 
     #back-to-home {
@@ -80,15 +81,15 @@
                             <a class="nav-link" href="/">Home <span class="sr-only"></span></a>
                         </li>
                         <!-- 以下はログイン状態に応じて表示されるボタン -->
-                                                <li class="nav-item active before-login">
+                        <li class="nav-item active before-login">
                             <a class="nav-link" href="/register">Register <span class="sr-only"></span></a>
                         </li>
                         <li class="nav-item active before-login">
                             <a class="nav-link" href="/login">Login <span class="sr-only"></span></a>
                         </li>
-                                                <!-- ここまで -->
+                        <!-- ここまで -->
                     </ul>
-                </nav>
+                </div>
             </div>
         </div>
     </header>
@@ -97,41 +98,29 @@
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script>
         $(document).ready(function () {
-            $("#menu-toggle").click(function () {
-                // モーダルを表示
-                $("#modal-overlay").toggle();
-                $("#modal").toggle();
+    $("#menu-toggle").click(function () {
+        $("#modal-overlay").toggle();
+        $("#modal").toggle();
+        $(".menu-btn span").toggleClass("open");
+    });
 
-                // ハンバーガーアイコンと×アイコンを切り替える
-                $(".menu-btn i").toggleClass("fa-bars fa-times");
-            });
+    $("#modal-overlay").click(function (event) {
+        if (event.target.id === "modal-overlay") {
+            closeModal();
+        }
+    });
 
-            $("#close-modal").click(function () {
-                // ×アイコンをクリックしたら閉じる
-                closeModal();
-            });
+    function closeModal() {
+        $("#modal-overlay").hide();
+        $("#modal").hide();
+        $(".menu-btn span").removeClass("open");
+    }
 
-            $("#modal-overlay").click(function (event) {
-                // モーダルの外側をクリックした場合は閉じる
-                if (event.target.id === "modal-overlay") {
-                    closeModal();
-                }
-            });
+    $("#modal a").click(function () {
+        closeModal();
+    });
+});
 
-            function closeModal() {
-                // モーダルを非表示
-                $("#modal-overlay").hide();
-                $("#modal").hide();
-
-                // ハンバーガーアイコンと×アイコンを切り替える
-                $(".menu-btn i").toggleClass("fa-bars fa-times");
-            }
-
-            // メニュー項目がクリックされたときにもモーダルを非表示にする
-            $("#modal ul.navbar-nav li.nav-item a.nav-link").click(function () {
-                closeModal();
-            });
-        });
     </script>
 
     <!-- ページ遷移用のJavaScript -->
@@ -181,15 +170,15 @@
         <form>
             <div class="form-group">
                 <div class="iconUser"></div>
-                <input type="text" placeholder="Username" required>
+                <input type="text" id="username" name="username" placeholder="Username" required autocomplete="username">
             </div>
             <div class="form-group">
                 <div class="iconEmail"></div>
-                <input type="email" placeholder="Email" required>
+                <input type="email" id="email" name="email" placeholder="Email" required autocomplete="email">
             </div>
             <div class="form-group">
                 <div class="iconPassword"></div>
-                <input type="password" placeholder="Password" required>
+                <input type="password" id="password" name="password" placeholder="Password" required autocomplete="new-password">
             </div>
             <input type="submit" value="登録">
         </form>

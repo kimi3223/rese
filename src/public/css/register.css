@@ -5,13 +5,25 @@
     box-sizing: border-box;
 }
 
+#modal {
+    /* 既存のスタイルは省略 */
+    text-align: right;
+}
+
+#modal a {
+    color: #333;
+    font-size: 1.5em;
+    text-decoration: none;
+    margin-right: 10px;
+}
+
 body {
     font-family: 'Open Sans', sans-serif;
     justify-content: center;
     align-items: center;
     height: 100vh;
     margin: 0;
-    background-color: #f0f0f0;
+    background-color: #f8f9fa;
 }
 
 .registration-form {
@@ -28,7 +40,7 @@ body {
 form {
     display: flex;
     flex-direction: column;
-    padding: 20px;
+    padding: 10px;
     max-width: 300px;
     margin: auto;
 }
@@ -57,6 +69,9 @@ input[type="password"] {
     color: #555;
     box-sizing: border-box;
     border: none;
+    outline: none;
+    border-bottom: 1px solid black;
+    border-bottom: 1px solid black;
 }
 
 .iconUser,
@@ -106,7 +121,7 @@ input[type="submit"]:hover {
 .form-group {
     display: flex;
     align-items: center;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
 }
 
 .form-group input {
