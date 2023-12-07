@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="{{ asset('css/login.css') }}">
     <link rel="stylesheet" href="{{ asset('css/thanks.css') }}">
     <link rel="stylesheet" href="{{ asset('css/detail.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/register.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <!-- Include FontAwesome -->
 </head>
@@ -61,28 +62,37 @@
             </button>
 
             <div class="search-box">
-                <form action="{{ route('search') }}" method="GET">
+                <form action="{{ route('search') }}" method="GET" class="search-form">
                     @csrf
-                    <select class="search-dropdown" name="region" id="region" autocomplete="off">
-                        <option value="region1">All area</option>
-                        <option value="region2">東京都</option>
-                        <option value="region3">大阪府</option>
-                        <option value="region4">福岡県</option>
-                        <!-- 他のエリアのオプションを追加 -->
-                    </select>
+                    <div class="search-dropdown-container">
+                        <select class="search-dropdown" name="region" id="region" autocomplete="off">
+                            <option value="region1">All area</option>
+                            <option value="region2">東京都</option>
+                            <option value="region3">大阪府</option>
+                            <option value="region4">福岡県</option>
+                            <!-- 他のエリアのオプションを追加 -->
+                        </select>
+                    </div>
 
-                    <select class="search-dropdown" name="genre" id="genre">
-                        <option value="genre1">All genre</option>
-                        <option value="genre2">寿司</option>
-                        <option value="genre3">焼肉</option>
-                        <option value="genre4">居酒屋</option>
-                        <option value="genre5">イタリアン</option>
-                        <option value="genre6">ラーメン</option>
-                        <!-- 他のカテゴリのオプションを追加 -->
-                    </select>
+                    <div class="search-dropdown-container">
+                        <select class="search-dropdown" name="genre" id="genre">
+                            <option value="genre1">All genre</option>
+                            <option value="genre2">寿司</option>
+                            <option value="genre3">焼肉</option>
+                            <option value="genre4">居酒屋</option>
+                            <option value="genre5">イタリアン</option>
+                            <option value="genre6">ラーメン</option>
+                            <!-- 他のカテゴリのオプションを追加 -->
+                        </select>
+                    </div>
 
-                    <input type="text" name="keyword" placeholder="Search...">
-                    <button type="submit">検索</button>
+                    <div class="search-input-container">
+                        <input type="text" name="keyword" placeholder="Search...">
+                    </div>
+
+                    <div class="search-button-container">
+                        <button type="submit">検索</button>
+                    </div>
                 </form>
             </div>
 
@@ -97,9 +107,12 @@
                         <!-- 以下はログイン状態に応じて表示されるボタン -->
                         @if (Auth::check())
                         <li class="nav-item active">
-                            <form method="POST" action="{{ route('logout') }}">
+                            <a href="{{ route('logout') }}"
+                                onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                Logout <span class="sr-only"></span>
+                            </a>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                 @csrf
-                                <button type="submit" class="nav-link" style="border: none; background: none; cursor: pointer;">Logout <span class="sr-only"></span></button>
                             </form>
                         </li>
                         <li class="nav-item active after-login">

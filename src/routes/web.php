@@ -24,7 +24,7 @@ Route::get('/', [ShopController::class, 'index']);
 Route::get('/create-shops', [ShopController::class, 'createShops']);
 
 Route::get('/shops', [ShopController::class, 'index']);
-Route::get('/search', [ShopController::class, 'index'])->name('search');
+Route::get('/search', [ShopController::class, 'search'])->name('search');
 
 // 飲食店詳細表示（ログインが必要）
 Route::middleware('auth')->group(function () {

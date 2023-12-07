@@ -1,60 +1,102 @@
-.register-form__content {
-    margin: 0 auto;
-    padding: 30px 15px;
-    max-width: 1230px;
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:300,400,700);
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
 }
 
-.register-form__heading {
-    margin-bottom: 20px;
+body {
+    font-family: 'Open Sans', sans-serif;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f0f0f0;
+}
+
+.registration-form {
+    width: 300px;
+    margin: 2% auto;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    /* ここを変更 */
+    background: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    transition: opacity 1s;
+}
+
+h1 {
+    background: blue;
+    padding: 20px 0;
+    font-size: 140%;
+    font-weight: 300;
     text-align: center;
+    color: #fff;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
 }
 
-.form {
-    margin: 0 auto;
-    width: 25%;
-    text-align: center;
+form {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
 }
 
-.form__group {
-    margin-bottom: 5px;
-}
-
-.form__group-title {
-    text-align: left;
-}
-
-.form__error {
-    height: 20px;
-    color: #ff0000;
-    text-align: left;
-}
-
-.form__input--text input {
-    padding: 10px;
+input[type="text"],
+input[type="email"],
+input[type="password"] {
     width: 100%;
     height: 40px;
-    border: 1px solid #ddd;
-    border-radius: 3px;
-
-    appearance: none;
-}
-
-.form__button {
-    margin-top: 20px;
-}
-
-.form__button-submit {
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
     padding: 10px;
-    width: 30%;
-    height: 50px;
-    border: none;
-    border-radius: 3px;
-    background: #000;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 95%;
+    color: #555;
+    box-sizing: border-box;
+}
+
+.iconUser,
+.iconEmail,
+.iconPassword {
+    width: 20px;
+    height: 20px;
+    background-color: white;
+    float: left;
+    margin-right: 10px;
+    background-repeat: no-repeat;
+    box-sizing: border-box;
+}
+
+.iconUser {
+    background-image: url('https://cdn4.iconfinder.com/data/icons/font-awesome-2/2048/f007-32.png');
+}
+
+.iconEmail {
+    background-image: url('https://cdn4.iconfinder.com/data/icons/font-awesome-2/2048/f0e0-32.png');
+    /* これを追加 */
+}
+
+.iconPassword {
+    background-image: url('https://cdn4.iconfinder.com/data/icons/font-awesome-2/2048/f09c-32.png');
+}
+
+input[type="submit"] {
+    width: 20%;
+    background: blue;
+    border: 0;
+    padding: 10px;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 100%;
     color: #fff;
     cursor: pointer;
+    transition: background .3s;
+    box-sizing: border-box;
+    margin-left: auto;
+    border-radius: 5px;
 }
 
-.login__link {
-    margin-top: 20px;
-    text-align: center;
+input[type="submit"]:hover {
+    background: #53B9A8;
 }

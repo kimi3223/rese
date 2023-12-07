@@ -1,74 +1,102 @@
 @extends('layouts.app')
 
-@section('css')
-<link rel="stylesheet" href="{{ asset('css/register.css') }}">
-@endsection
-
 @section('content')
-<div class="register__content">
-  <div class="register-form__heading">
-    <h2>会員登録</h2>
-  </div>
-  <form class="form" action="/register" method="post">
-    @csrf
-    <div class="form__group">
-      <div class="form__group-title">
-        <span class="form__label--item">お名前</span>
-      </div>
-      <div class="form__group-content">
-        <div class="form__input--text">
-          <input type="text" name="name" value="{{ old('name') }}" />
+    <!-- ハンバーガーメニューのHTMLとJavaScriptのコードを追加 -->
+    <header>
+        <nav>
+            <!-- メニューボタン（.menu-btn） -->
+            <button id="menu-toggle" style="border: none; outline: none;">
+                <div class="menu-btn">
+                    <span></span>
+                </div>
+            </button>
+
+            <!-- ハンバーガーメニューの内容 -->
+            <div id="modal-overlay" style="display: none;">
+                <div id="modal" style="display: none;">
+                    <a id="back-to-home" onclick="closeModal()">×</a>
+                    <ul class="navbar-nav">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="/">Home <span class="sr-only"></span></a>
+                        </li>
+                        <!-- 以下はログイン状態に応じて表示されるボタン -->
+                        @if (Auth::check())
+                            <li class="nav-item active">
+                                <form method="POST" action="{{ route('logout') }}">
+                                    @csrf
+                                    <button type="submit" class="nav-link" style="border: none; background: none; cursor: pointer;">Logout <span class="sr-only"></span></button>
+                                </form>
+                            </li>
+                            <li class="nav-item active after-login">
+                                <a class="nav-link" href="/mypage">Mypage <span class="sr-only"></span></a>
+                            </li>
+                        @else
+                            <li class="nav-item active before-login">
+                                <a class="nav-link" href="/register">Register <span class="sr-only"></span></a>
+                            </li>
+                            <li class="nav-item active before-login">
+                                <a class="nav-link" href="/login">Login <span class="sr-only"></span></a>
+                            </li>
+                        @endif
+                        <!-- ここまで -->
+                    </ul>
+                </div>
+            </nav>
         </div>
-        <div class="form__error">
-          @error('name')
-          {{ $message }}
-          @enderror
-        </div>
-      </div>
+    </header>
+
+    <!-- ページ遷移用のJavaScript -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#menu-toggle").click(function () {
+                // モーダルを表示
+                $("#modal-overlay").toggle();
+                $("#modal").toggle();
+
+                // ハンバーガーアイコンと×アイコンを切り替える
+                $(".menu-btn i").toggleClass("fa-bars fa-times");
+            });
+
+            $("#close-modal").click(function () {
+                // ×アイコンをクリックしたら閉じる
+                closeModal();
+            });
+
+            $("#modal-overlay").click(function (event) {
+                // モーダルの外側をクリックした場合は閉じる
+                if (event.target.id === "modal-overlay") {
+                    closeModal();
+                }
+            });
+
+            function closeModal() {
+                // モーダルを非表示
+                $("#modal-overlay").hide();
+                $("#modal").hide();
+
+                // ハンバーガーアイコンと×アイコンを切り替える
+                $(".menu-btn i").toggleClass("fa-bars fa-times");
+            }
+
+            // メニュー項目がクリックされたときにもモーダルを非表示にする
+            $("#modal ul.navbar-nav li.nav-item a.nav-link").click(function () {
+                closeModal();
+            });
+        });
+    </script>
+
+    <!-- コンテンツ部分 -->
+    <div class="registration-form">
+        <h1>Registration</h1>
+        <form>
+            <div class="iconUser"></div>
+            <input type="text" placeholder="Username" required>
+            <div class="iconEmail"></div>
+            <input type="email" placeholder="Email" required>
+            <div class="iconPassword"></div>
+            <input type="password" placeholder="Password" required>
+            <input type="submit" value="登録">
+        </form>
     </div>
-    <div class="form__group">
-      <div class="form__group-title">
-        <span class="form__label--item">メールアドレス</span>
-      </div>
-      <div class="form__group-content">
-        <div class="form__input--text">
-          <input type="email" name="email" value="{{ old('email') }}" />
-        </div>
-        <div class="form__error">
-          @error('email')
-          {{ $message }}
-          @enderror
-        </div>
-      </div>
-    </div>
-    <div class="form__group">
-      <div class="form__group-title">
-        <span class="form__label--item">パスワード</span>
-      </div>
-      <div class="form__group-content">
-        <div class="form__input--text">
-          <input type="password" name="password" />
-        </div>
-        <div class="form__error">
-          @error('password')
-          {{ $message }}
-          @enderror
-        </div>
-      </div>
-    </div>
-    <div class="form__group">
-      <div class="form__group-title">
-        <span class="form__label--item">確認用パスワード</span>
-      </div>
-      <div class="form__group-content">
-        <div class="form__input--text">
-          <input type="password" name="password_confirmation" />
-        </div>
-      </div>
-    </div>
-    <div class="form__button">
-      <button class="form__button-submit" type="submit">登録</button>
-    </div>
-  </form>
-</div>
 @endsection

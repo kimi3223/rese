@@ -10,9 +10,9 @@ class ShopController extends Controller
     public function index(Request $request)
     {
         // フォームから送信された検索条件を取得
-        $area = $request->input('area');
-        $category = $request->input('category');
-        $keyword = $request->input('keyword');
+        $area = $request->input('region');
+        $category = $request->input('genre');
+        $keyword = $request->input('name');
 
         // クエリビルダを使って検索条件に合致するデータを取得
         $query = Shop::query();
@@ -33,6 +33,34 @@ class ShopController extends Controller
         $shops = $query->get();
 
         return view('shops.index', compact('shops'));
+    }
+
+    public function search(Request $request)
+    {
+        // 検索条件の取得などの処理を行う
+        $area = $request->input('region');
+        $category = $request->input('genre');
+        $keyword = $request->input('name');
+
+        // クエリビルダを使って検索条件に合致するデータを取得
+        $query = Shop::query();
+
+        if ($area && $area !== 'All area') {
+            $query->where('region', $area);
+        }
+
+        if ($category && $category !== 'All genre') {
+            $query->where('genre', $category);
+        }
+
+        if ($keyword) {
+            $query->where('name', 'like', '%' . $keyword . '%');
+        }
+
+        // 取得したデータをビューに渡す
+        $shops = $query->get();
+
+        return view('shops.search', compact('shops'));
     }
 
     public function show($id)
