@@ -278,8 +278,8 @@ nav a:hover {
 }
 
 .search-form {
-    display: flex;
-    display: inline-block;
+    justify-content: flex-end;
+    display: contents;
 }
 
 .search-dropdown-container,

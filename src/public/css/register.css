@@ -2,7 +2,6 @@
 
 * {
     padding: 0;
-    margin: 0;
     box-sizing: border-box;
 }
 
@@ -26,21 +25,22 @@ body {
     transition: opacity 1s;
 }
 
-h1 {
-    background: blue;
-    padding: 20px 0;
-    font-size: 140%;
-    font-weight: 300;
-    text-align: center;
-    color: #fff;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-}
-
 form {
     display: flex;
     flex-direction: column;
     padding: 20px;
+    max-width: 300px;
+    margin: auto;
+}
+
+form div {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+form div input {
+    margin-left: 10px;
 }
 
 input[type="text"],
@@ -48,6 +48,7 @@ input[type="email"],
 input[type="password"] {
     width: 100%;
     height: 40px;
+    border-bottom: 1px solid #ccc;
     margin-bottom: 10px;
     border: 1px solid #ccc;
     padding: 10px;
@@ -55,13 +56,14 @@ input[type="password"] {
     font-size: 95%;
     color: #555;
     box-sizing: border-box;
+    border: none;
 }
 
 .iconUser,
 .iconEmail,
 .iconPassword {
-    width: 20px;
-    height: 20px;
+    height: 40px;
+    width: 40px;
     background-color: white;
     float: left;
     margin-right: 10px;
@@ -99,4 +101,14 @@ input[type="submit"] {
 
 input[type="submit"]:hover {
     background: #53B9A8;
+}
+
+.form-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.form-group input {
+    margin-left: 10px;
 }
