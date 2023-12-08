@@ -1,53 +1,154 @@
-@extends('layouts.app')
+<!DOCTYPE html>
+<html lang="en">
 
-@section('css')
-<link rel="stylesheet" href="{{ asset('css/login.css') }}">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-nZXQr84+dP0q5CEV8/jLb6sw54ufmM4hvMmYwWLAg0GO9W38UZJZEl82W7L3dNThGdEWKuAe+oX4vDdPYsGrFg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-@endsection
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="fc3Ry1CEmofdyhmKH47kUVVCRj5sL5BF8scYOHu0">
+    <title>Rese</title>
+    <link rel="stylesheet" href="http://localhost/css/sanitize.css">
+    <link rel="stylesheet" href="http://localhost/css/app.css">
+    <link rel="stylesheet" href="http://localhost/css/login.css">
+    <link rel="stylesheet" href="http://localhost/css/thanks.css">
+    <link rel="stylesheet" href="http://localhost/css/detail.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Include FontAwesome -->
+    <style>
+        h1 {
+            margin: 0; /* マージンを無効にする */
+            background: blue;
+            padding: 5px;
+            font-size: 120%;
+            font-weight: 300;
+            color: #fff;
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+        }
 
-@section('content')
+        #modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: white;
+            z-index: 1000;
+            display: none;
+        }
 
-<fieldset>
-<div class="login__content">
-  <div class="login-form__heading">
-    <h2>Login</h2>
-  </div>
-  <form class="form" action="/login" method="post">
-    @csrf
-    <div class="form__group">
-      <div class="form__group-title">
-        <span class="form__label--item">Email</span>
-      </div>
-      <div class="form__group-content">
-        <div class="form__input--text">
-          <input type="email" name="email" placeholder="Email" required value="{{ old('email') }}" />
-        </div>
-        <div class="form__error">
-          @error('email')
-          {{ $message }}
-          @enderror
-        </div>
-      </div>
+        #modal {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #fff;
+            padding: 20px;
+            z-index: 1001;
+            display: none;
+            box-sizing: border-box;
+        }
+
+        #back-to-home {
+            cursor: pointer;
+            font-size: 1.5em;
+            text-decoration: none;
+            color: black;
+        }
+
+        #company-name {
+            margin-left: 10px;
+            font-size: 1.5em;
+            color: blue;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <nav>
+            <!-- メニューボタン（.menu-btn） -->
+            <button id="menu-toggle" style="border: none; outline: none;">
+                <div class="menu-btn">
+                    <span></span>
+                </div>
+            </button>
+
+            <!-- ハンバーガーメニューの内容 -->
+            <div id="modal-overlay" style="display: none;">
+                <div id="modal" style="display: none;">
+                    <a id="back-to-home" onclick="closeModal()">×</a>
+                    <ul class="navbar-nav">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="/">Home <span class="sr-only"></span></a>
+                        </li>
+                        <!-- 以下はログイン状態に応じて表示されるボタン -->
+                        <li class="nav-item active before-login">
+                            <a class="nav-link" href="/register">Register <span class="sr-only"></span></a>
+                        </li>
+                        <li class="nav-item active before-login">
+                            <a class="nav-link" href="/login">Login <span class="sr-only"></span></a>
+                        </li>
+                        <!-- ここまで -->
+                    </ul>
+                </div>
+            </div>
+            <div id="company-name">Rese</div>
+        </nav>
+    </header>
+
+    <!-- ページ遷移用のJavaScript -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script>
+        // 以前のJavaScriptコードをそのまま残しています
+        $(document).ready(function () {
+            $("#menu-toggle").click(function () {
+                // モーダルを表示
+                $("#modal-overlay").toggle();
+                $("#modal").toggle();
+
+                // ハンバーガーアイコンと×アイコンを切り替える
+                $(".menu-btn span").toggleClass("open");
+            });
+
+            $("#close-modal").click(function () {
+                // ×アイコンをクリックしたら閉じる
+                closeModal();
+            });
+
+            $("#modal-overlay").click(function (event) {
+                // モーダルの外側をクリックした場合は閉じる
+                if (event.target.id === "modal-overlay") {
+                    closeModal();
+                }
+            });
+
+            function closeModal() {
+                // モーダルを非表示
+                $("#modal-overlay").hide();
+                $("#modal").hide();
+
+                // ハンバーガーアイコンと×アイコンを切り替える
+                $(".menu-btn span").toggleClass("open");
+            }
+            });
+    </script>
+
+    <!-- コンテンツ部分 -->
+    <div class="registration-form">
+        <h1>Login</h1>
+        <form class="form" action="/login" method="post">
+          @csrf
+            <div class="form-group">
+                <div class="iconEmail"></div>
+                <input type="email" id="email" name="email" placeholder="Email" required autocomplete="email">
+            </div>
+            <div class="form-group">
+                <div class="iconPassword"></div>
+                <input type="password" id="password" name="password" placeholder="Password" required autocomplete="new-password">
+            </div>
+            <input type="submit" id="login-button" value="ログイン">
+        </form>
     </div>
-    <div class="form__group">
-      <div class="form__group-title">
-        <span class="form__label--item">Password</span>
-      </div>
-      <div class="form__group-content">
-        <div class="form__input--text">
-          <input type="password" name="password" placeholder="Password" required  />
-        </div>
-        <div class="form__error">
-          @error('password')
-          {{ $message }}
-          @enderror
-        </div>
-      </div>
-    </div>
-    <div class="form__button">
-      <button class="form__button-submit" type="submit">ログイン</button>
-    </div>
-  </form>
-</fieldset>
-</div>
-@endsection
+    </body>
+
+</html>
