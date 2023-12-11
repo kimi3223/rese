@@ -1,0 +1,37 @@
+.flex-container {
+    display: flex;
+}
+
+/* 左側：店の詳細情報 */
+.shop-details-container {
+    flex: 1;
+    padding: 20px;
+}
+
+/* 左側ボタン */
+.shop-details-container button {
+    margin-right: 10px;
+}
+
+/* 画像 */
+#shopImage {
+    max-width: 100%;
+}
+
+/* 右側：予約フォーム */
+#reservationForm {
+    flex: 1;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+}
+
+/* 予約確認 */
+#reservationDetailsContainer {
+    margin-top: 20px;
+}
+
+/* 予約ボタン */
+#reservationForm button {
+    margin-top: 10px;
+}

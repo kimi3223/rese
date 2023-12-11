@@ -279,7 +279,7 @@ nav a:hover {
 
 .search-form {
     justify-content: flex-end;
-    display: contents;
+    display: flex;
 }
 
 .search-dropdown-container,

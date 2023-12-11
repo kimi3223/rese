@@ -37,12 +37,11 @@ class ShopController extends Controller
 
     public function search(Request $request)
     {
-        // 検索条件の取得などの処理を行う
         $area = $request->input('region');
         $category = $request->input('genre');
         $keyword = $request->input('name');
 
-        // クエリビルダを使って検索条件に合致するデータを取得
+         // クエリビルダを使って検索条件に合致するデータを取得
         $query = Shop::query();
 
         if ($area && $area !== 'All area') {
@@ -59,6 +58,9 @@ class ShopController extends Controller
 
         // 取得したデータをビューに渡す
         $shops = $query->get();
+
+        // データが正しく渡されているか確認
+        // dd($shops);
 
         return view('shops.search', compact('shops'));
     }
@@ -79,8 +81,10 @@ class ShopController extends Controller
         // $id に基づいてデータを取得
         $shop = Shop::find($shop_id);
 
+        $shops = Shop::all();
+
         // 必要に応じてビューを返す
-        return view('shops.detail', compact('shop'));
+        return view('shops.detail', compact('shop', 'shops'));
     }
 
     public function createShops()

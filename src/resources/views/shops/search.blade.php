@@ -11,7 +11,7 @@
         <div class="shop-list">
             @foreach($shops as $shop)
                 <div class="shop-item">
-                    <img src="{{ $shop->image_url }}" alt="{{ $shop->name }}">
+                    <img src="{{ $shop->image_url }}" alt="{{ $shop->name }}" @error($shop->image_url) style="display: none;" @enderror>
                     <div class="shop-details">
                         <h2>{{ $shop->name }}</h2>
                         <p># {{ $shop->region }}</p>

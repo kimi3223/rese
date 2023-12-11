@@ -66,28 +66,28 @@
                     @csrf
                     <div class="search-dropdown-container">
                         <select class="search-dropdown" name="region" id="region" autocomplete="off">
-                            <option value="region1">All area</option>
-                            <option value="region2">東京都</option>
-                            <option value="region3">大阪府</option>
-                            <option value="region4">福岡県</option>
+                            <option value="All area">All area</option>
+                            <option value="東京都">東京都</option>
+                            <option value="大阪府">大阪府</option>
+                            <option value="福岡県">福岡県</option>
                             <!-- 他のエリアのオプションを追加 -->
                         </select>
                     </div>
 
                     <div class="search-dropdown-container">
                         <select class="search-dropdown" name="genre" id="genre">
-                            <option value="genre1">All genre</option>
-                            <option value="genre2">寿司</option>
-                            <option value="genre3">焼肉</option>
-                            <option value="genre4">居酒屋</option>
-                            <option value="genre5">イタリアン</option>
-                            <option value="genre6">ラーメン</option>
+                            <option value="All genre">All genre</option>
+                            <option value="寿司">寿司</option>
+                            <option value="焼肉">焼肉</option>
+                            <option value="居酒屋">居酒屋</option>
+                            <option value="イタリアン">イタリアン</option>
+                            <option value="ラーメン">ラーメン</option>
                             <!-- 他のカテゴリのオプションを追加 -->
                         </select>
                     </div>
 
                     <div class="search-input-container">
-                        <input type="text" name="keyword" placeholder="Search...">
+                        <input type="text" name="name" placeholder="Search...">
                     </div>
 
                     <div class="search-button-container">
@@ -95,6 +95,7 @@
                     </div>
                 </form>
             </div>
+
 
             <!-- ハンバーガーメニューの内容 -->
             <div id="modal-overlay" style="display: none;">
