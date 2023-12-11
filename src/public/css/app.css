@@ -11,6 +11,14 @@ header {
     padding: 10px;
 }
 
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+     /* 適切なパディングを設定してください */
+}
+
 nav {
     display: flex;
     align-items: center;

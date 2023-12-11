@@ -62,7 +62,7 @@
             </button>
 
             <div class="search-box">
-                <form action="{{ route('search') }}" method="GET" class="search-form">
+                <form action="{{ route('search') }}" method="GET" class="search-form" style="display: contents">
                     @csrf
                     <div class="search-dropdown-container">
                         <select class="search-dropdown" name="region" id="region" autocomplete="off">

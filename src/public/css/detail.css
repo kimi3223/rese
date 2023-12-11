@@ -1,5 +1,7 @@
 .flex-container {
     display: flex;
+    flex-direction: column;
+    width: 50%;
 }
 
 /* 左側：店の詳細情報 */
@@ -22,8 +24,10 @@
 #reservationForm {
     flex: 1;
     padding: 20px;
-    border: 1px solid #ccc;
+    border: 1px solid #ddd;
     border-radius: 10px;
+    background-color: rgb(0, 68, 255);
+    position: relative;
 }
 
 /* 予約確認 */
@@ -33,5 +37,23 @@
 
 /* 予約ボタン */
 #reservationForm button {
+    margin-top: 10px;
+}
+
+#reservationDetails {
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 10px;
+    background-color: rgb(0, 115, 255);
+    color: white;
+}
+
+h3 {
+    color: white;
+}
+#reserveButton {
+    position: absolute;
+    background-color: blue;
+    color: white;
     margin-top: 10px;
 }

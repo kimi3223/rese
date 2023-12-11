@@ -2,7 +2,7 @@
 
 @section('content')
     <div style="display: flex;">
-        <div class="flex-container" style="display: flex; flex-direction: column; width: 50%;">
+        <div class="flex-container" >
             <!-- 上部：＜と店舗名と＞横一列 -->
             <div style="display: flex; align-items: center;">
                 <!-- 左側ボタン -->
@@ -19,40 +19,40 @@
             </div>
         </div>
 
-        <!-- 右側：予約フォーム -->
-        <div id="reservationForm" style="flex: 1; padding: 20px; border: 1px solid #ccc; border-radius: 10px;">
-            <h3>予約</h3> <!-- 予約のタイトルを追加 -->
-            <!-- 日付選択 -->
-            <label for="reservation_date">日付：</label>
-            <input type="date" id="reservation_date" name="reservation_date" required onchange="updateReservationDetails()">
-            <br>
+        <div style="display: flex; flex-direction: column; flex: 1;">
+            <!-- 右側：予約フォーム -->
+            <div id="reservationForm" >
+                <h3>予約</h3> <!-- 予約のタイトルを追加 -->
+                <!-- 日付選択 -->
+                <label for="reservation_date"></label>
+                <input type="date" id="reservation_date" name="reservation_date" required onchange="updateReservationDetails()">
+                <br>
 
-            <!-- 時間選択 -->
-            <label for="reservation_time">時間：</label>
-            <input type="time" id="reservation_time" name="reservation_time" required onchange="updateReservationDetails()">
-            <br>
+                <!-- 時間選択 -->
+                <label for="reservation_time"></label>
+                <input type="time" id="reservation_time" name="reservation_time" required onchange="updateReservationDetails()">
+                <br>
 
-            <!-- 人数選択 -->
-            <label for="number_of_people">人数：</label>
-            <input type="number" id="number_of_people" name="number_of_people" min="1" required onchange="updateReservationDetails()">
-            <br>
+                <!-- 人数選択 -->
+                <label for="number_of_people"></label>
+                <input type="number" id="number_of_people" name="number_of_people" min="1" required onchange="updateReservationDetails()">
+                <br>
 
-            <!-- 予約確認 -->
-            <div id="reservationDetailsContainer">
-                <p>予約確認：</p>
-                <div id="reservationDetails" style="border: 1px solid #ddd; padding: 10px; border-radius: 5px; margin-top: 10px;">
-                    <!-- ここに予約内容の確認を表示 -->
+                <!-- 予約確認 -->
+                <div id="reservationDetailsContainer">
+                    <p></p>
+                    <div id="reservationDetails" >
+                        <!-- ここに予約内容の確認を表示 -->
+                    </div>
                 </div>
+                <!-- 予約ボタン -->
+                <form method="POST" action="{{ route('reservations.store', ['shopId' => $shop->id]) }}">
+                    @csrf
+                    <!-- フォームのフィールドはここに記述 -->
+                    <button type="submit" id="reserveButton" >予約する</button>
+                </form>
             </div>
-
-            <!-- 予約ボタン -->
-            <form method="POST" action="{{ route('reservations.store', ['shopId' => $shop->id]) }}">
-                @csrf
-                <!-- フォームのフィールドはここに記述 -->
-                <button type="submit">予約する</button>
-            </form>
         </div>
-    </div>
 
     <script>
 const shops = {!! json_encode($shops) !!}; // ビューから渡された店舗のリスト
@@ -97,11 +97,15 @@ showShopDetails();
         var selectedTime = document.getElementById('reservation_time').value;
         var numberOfPeople = document.getElementById('number_of_people').value;
 
+        // 店舗名を取得
+        var shopName = document.getElementById('shopName').innerText;
+
         // 予約確認エリアを更新
         document.getElementById('reservationDetails').innerHTML = `
-            <p>日付: ${selectedDate}</p>
-            <p>時間: ${selectedTime}</p>
-            <p>人数: ${numberOfPeople}人</p>
+            <p>Shop       ${shopName}</p>
+            <p>Date       ${selectedDate}</p>
+            <p>Time       ${selectedTime}</p>
+            <p>Number     ${numberOfPeople}人</p>
         `;
     }
 </script>
