@@ -19,7 +19,7 @@
                     </a>
                     <!-- お気に入りボタン -->
                     <a href="#" class="favorite-button" data-shop-id="{{ $shop->id }}">
-                        <i class="fas fa-heart"></i>
+                        <i class="fa-heart fas"></i>
                     </a>
                 </div>
             </div>
@@ -38,6 +38,7 @@
             // ログイン状態を確認
             @auth
                 var shopId = $(this).data('shop-id');
+                var heartIcon = $(this).find('i');
 
                 // Ajaxを使用してお気に入りの追加をリクエスト
                 var csrfToken = $('meta[name="csrf-token"]').attr('content');
@@ -51,6 +52,9 @@
                     },
                     success: function (data) {
                         alert('お気に入りに追加しました！');
+
+                        // ハートの色を変更
+                        heartIcon.toggleClass('fas far');
                     }
                 });
             @else

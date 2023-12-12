@@ -9,13 +9,13 @@
         <h3>予約状況</h3>
 
         <!-- 予約1のカード（サンプルデータ） -->
-        <div style="display: flex; align-items: center; border: 1px solid #ccc; padding: 10px; margin-bottom: 20px;">
+        <div style="display: flex; align-items: center; border: 1px solid #ccc; padding: 10px; background: rgb(0, 89, 255); color: white;">
             <div style="flex: 1;">
                 <h4>予約1</h4>
-                <p>ショップ名: サンプル店舗</p>
-                <p>予約日付: 2023-12-01</p>
-                <p>予約時間: 18:00</p>
-                <p>人数: 2人</p>
+                <p>shop: サンプル店舗</p>
+                <p>Date: 2023-12-01</p>
+                <p>Time: 18:00</p>
+                <p>Number: 2人</p>
             </div>
 
             <!-- 予約を取り消すボタン -->
@@ -50,7 +50,7 @@
                                     <button type="button" class="btn btn-primary">詳しくみる</button>
                                 </a>
                                 <!-- お気に入りボタン -->
-                                <a href="#" class="favorite-button" data-shop-id="{{ $favorite->shop->id }}">
+                                <a href="#" class="favorite-button" data-shop-id="{{ $favorite->shop->id }}" onclick="deleteFavorite({{ $favorite->id }})">
                                     <i class="fas fa-heart"></i>
                                 </a>
                             </div>
@@ -87,6 +87,33 @@
         });
     }
 }
+</script>
+<script>
+    function deleteFavorite(favoriteId) {
+        if (confirm('本当にお気に入りを削除しますか？')) {
+            // Ajaxリクエストを送信
+            $.ajax({
+                url: '/favorites/' + favoriteId,
+                type: 'DELETE',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                },
+                success: function(response) {
+                    // 成功時の処理
+                    if (response.success) {
+                        alert('お気に入りが削除されました。');
+                        // ページをリロードするか、お気に入りを表示するための別の処理を実行
+                    } else {
+                        alert('お気に入りの削除に失敗しました。');
+                    }
+                },
+                error: function(error) {
+                    // エラー時の処理
+                    alert('エラーが発生しました。');
+                },
+            });
+        }
+    }
 </script>
 
 @endsection

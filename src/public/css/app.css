@@ -248,19 +248,6 @@ nav a:hover {
     cursor: pointer;
 }
 
-.favorite-button::before {
-    content: '\2764';
-    /* ハートの Unicode 文字コード */
-    top: 0;
-    color: red;
-    /* ハートの色 */
-}
-
-.favorite-button::before {
-    right: 0;
-    font-size: 2rem;
-}
-
 .favorite-button::after {
     left: 10px;
     /* ハート同士の間隔を調整 */
@@ -290,16 +277,35 @@ nav a:hover {
     display: flex;
 }
 
-.search-dropdown-container,
-.search-input-container,
-.search-button-container {
-    margin-right: 10px;
-    display: inline-block;
-}
-
 .search-dropdown,
 .search-input,
 .search-button {
-    width: 150px;
-    /* 各要素の幅を調整 */
+    width: 100px;
+    border: none;
+    height: 30px;
+}
+
+.search-box {
+    background-color: white;
+    border-radius: 5px;
+    /* 角の丸みを調整 */
+    padding: 10px;
+    /* 内側の余白を調整 */
+    margin: 10px;
+    /* 外側の余白を調整 */
+    display: flex;
+}
+
+.search-input-container {
+    display: flex;
+    align-items: center;
+}
+
+.search-icon {
+    margin-right: 10px;
+    opacity: 0.3;
+}
+
+.fas.fa-heart {
+    color: red !important;
 }

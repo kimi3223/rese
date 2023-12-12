@@ -54,12 +54,15 @@
 <body>
     <header>
         <nav>
+        <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
             <!-- メニューボタン（.menu-btn） -->
             <button id="menu-toggle" style="border: none; outline: none;">
                 <div class="menu-btn">
                     <span></span>
                 </div>
             </button>
+
+            <div style="display: flex; align-items: center;">
 
             <div class="search-box">
                 <form action="{{ route('search') }}" method="GET" class="search-form" style="display: contents">
@@ -87,11 +90,10 @@
                     </div>
 
                     <div class="search-input-container">
+                        <div class="search-icon">
+                            <i class="fas fa-search"></i>
+                        </div>
                         <input type="text" name="name" placeholder="Search...">
-                    </div>
-
-                    <div class="search-button-container">
-                        <button type="submit">検索</button>
                     </div>
                 </form>
             </div>
