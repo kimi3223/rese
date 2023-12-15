@@ -29,10 +29,13 @@ class ShopController extends Controller
             $query->where('name', 'like', '%' . $keyword . '%');
         }
 
+         // お気に入りの店舗IDを取得
+        $favoriteShopIds = auth()->user() ? auth()->user()->favorites->pluck('shop_id')->toArray() : [];
+
         // 取得したデータをビューに渡す
         $shops = $query->get();
 
-        return view('shops.index', compact('shops'));
+        return view('shops.index', compact('shops', 'favoriteShopIds'));
     }
 
     public function search(Request $request)

@@ -18,9 +18,20 @@
                         <button class="button-class">詳しくみる</button>
                     </a>
                     <!-- お気に入りボタン -->
-                    <a href="#" class="favorite-button" data-shop-id="{{ $shop->id }}">
-                        <i class="fa-heart fas"></i>
-                    </a>
+                    @auth
+                        <?php
+                            $isFavorite = in_array($shop->id, $favoriteShopIds);
+                            $heartClass = $isFavorite ? 'fas' : 'far';
+                            $heartColor = $isFavorite ? 'red' : 'black';
+                        ?>
+                        <a href="#" class="favorite-button" data-shop-id="{{ $shop->id }}" style="color: {{ $heartColor }};">
+                            <i class="fa-heart {{ $heartClass }}"></i>
+                        </a>
+                    @else
+                        <a href="#" class="favorite-button" data-shop-id="{{ $shop->id }}">
+                            <i class="fa-heart far"></i>
+                        </a>
+                    @endauth
                 </div>
             </div>
         </div>
@@ -42,7 +53,6 @@
 
                 // Ajaxを使用してお気に入りの追加をリクエスト
                 var csrfToken = $('meta[name="csrf-token"]').attr('content');
-
                 $.ajax({
                     url: '{!! route('favorites.store') !!}',
                     type: 'POST',
@@ -55,6 +65,9 @@
 
                         // ハートの色を変更
                         heartIcon.toggleClass('fas far');
+                        var isFavorite = heartIcon.hasClass('fas');
+                        var heartColor = isFavorite ? 'red' : 'black';
+                        heartIcon.css('color', heartColor);
                     }
                 });
             @else

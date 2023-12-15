@@ -137,7 +137,7 @@
     <div class="registration-form">
         <h1>Login</h1>
         <form class="form" action="/login" method="post">
-          @csrf
+            @csrf
             <div class="form-group">
                 <div class="iconEmail"></div>
                 <input type="email" id="email" name="email" placeholder="Email" required autocomplete="email">

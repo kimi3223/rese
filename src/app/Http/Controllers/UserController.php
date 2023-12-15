@@ -24,6 +24,10 @@ class UserController extends Controller
 
         $reservation = Reservation::where('user_id', $user->id)->first();
 
-        return view('user.mypage', compact('favoriteShops', 'userInfo', 'reservation'));
+        return view('user.mypage', [
+            'favoriteShops' => $favoriteShops,
+            'userInfo' => $userInfo,
+            'reservation' => $reservation,
+        ]);
     }
 }

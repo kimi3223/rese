@@ -8,6 +8,7 @@
     <div style="width: 50%; padding-right: 20px;">
         <h3>予約状況</h3>
 
+        @if($reservation)
         <!-- 予約1のカード（サンプルデータ） -->
         <div style="display: flex; align-items: center; border: 1px solid #ccc; padding: 10px; background: rgb(0, 89, 255); color: white;">
             <div style="flex: 1;">
@@ -19,38 +20,53 @@
             </div>
 
             <!-- 予約を取り消すボタン -->
-            <form method="POST" action="{{ url('reservations/' . $reservation ?? ''->id) }}">
+            <form method="POST" action="{{ url('reservations/' . $reservation->id) }}">
                 @csrf
                 @method('DELETE')
                 <button type="submit">×</button>
             </form>
         </div>
+        @else
+            <p>予約がありません。</p>
+        @endif
     </div>
 
     <!-- 右半分：お気に入り店舗 -->
     <div class="col-md-6">
         <h4>{{ $userInfo->name }}さん</h4>
         <h4>お気に入り店舗</h4>
-        @if($favoriteShops->isEmpty())
-            <p>お気に入りの店舗はありません。</p>
-        @else
+        @if($favoriteShops->isNotEmpty())
             <div class="shop-list">
                 @foreach($favoriteShops as $favorite)
-                    <div class="shop-item">
-                        <img src="{{ $favorite->shop->image_url }}" alt="{{ $favorite->shop->name }}">
+                    <div class="shop-item" id="favorite-{{ $favorite->id }}">
+                        @if($favorite->shop && $favorite->shop->image_url)
+                            <img src="{{ $favorite->shop->image_url }}" alt="{{ $favorite->shop->name }}">
+                        @else
+                            <p>画像なし</p>
+                        @endif
                         <div class="shop-details">
-                            <h2>{{ $favorite->shop->name }}</h2>
+                            @if($favorite->shop && $favorite->shop->name)
+                                <h2>{{ $favorite->shop->name }}</h2>
+                            @else
+                                <p>店舗名なし</p>
+                            @endif
                             <div class="area-genre">
-                                <p># {{ $favorite->shop->region }}</p>
-                                <p># {{ $favorite->shop->genre }}</p>
+                                @if($favorite->shop)
+                                    <p># {{ $favorite->shop->region }}</p>
+                                    <p># {{ $favorite->shop->genre }}</p>
+                                @else
+                                    <p>店舗情報なし</p>
+                                @endif
                             </div>
                             <div style="display: flex; justify-content: space-between; align-items: center;">
                                 <!-- 詳しく見るボタン -->
-                                <a href="{{ route('shops.show', $favorite->shop->id) }}" style="text-decoration: none;">
-                                    <button type="button" class="btn btn-primary">詳しくみる</button>
-                                </a>
+                                @if($favorite->shop)
+                                    <a href="{{ route('shops.show', $favorite->shop->id) }}" style="text-decoration: none;">
+                                        <button type="button" class="btn btn-primary">詳しくみる</button>
+                                    </a>
+                                @endif
                                 <!-- お気に入りボタン -->
-                                <a href="#" class="favorite-button" data-shop-id="{{ $favorite->shop->id }}" onclick="deleteFavorite({{ $favorite->id }})">
+                                <a href="#" class="favorite-button" data-shop-id="{{ optional($favorite->shop)->id }}" onclick="deleteFavorite({{ $favorite->id }})">
                                     <i class="fas fa-heart"></i>
                                 </a>
                             </div>
@@ -58,6 +74,8 @@
                     </div>
                 @endforeach
             </div>
+        @else
+            <p>お気に入りの店舗はありません。</p>
         @endif
     </div>
 </div>
@@ -115,5 +133,4 @@
         }
     }
 </script>
-
 @endsection

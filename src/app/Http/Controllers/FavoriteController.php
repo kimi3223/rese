@@ -26,4 +26,27 @@ class FavoriteController extends Controller
         // レスポンス
         return response()->json(['message' => 'お気に入りに追加しました']);
     }
+
+    public function getFavoritesForUser()
+    {
+        // ログインしているユーザーのお気に入りデータを取得
+        $user = auth()->user();
+        $favoriteShops = $user->favorites()->with('shop')->get();
+
+        // ここで取得したデータを利用して何かしらの処理を行う（例：ビューに渡す、JSONレスポンスとして返す等）
+        // ...
+
+        return view('favorites.index', ['favoriteShops' => $favoriteShops]);
+    }
+
+    public function destroy(Favorite $favorite)
+    {
+        // お気に入りを削除する処理
+        $favorite->delete();
+
+        // レスポンス
+        return response()->json(['favorite_id' => $favorite->id]);
+    }
+
+
 }
