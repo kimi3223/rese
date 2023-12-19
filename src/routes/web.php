@@ -34,8 +34,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/reservations/store/{shopId}', [ReservationController::class, 'store'])->name('reservations.store');
     Route::get('/shops/show/{id}', [ShopController::class, 'show'])->name('shops.show');
     Route::delete('/reservations/{reservationId}', [ReservationController::class, 'destroy'])->name('reservations.destroy');
-    Route::post('/favorites', [FavoriteController::class, 'store'])->name('favorites.store');
-    Route::delete('/favorites/{favorite}', [FavoriteController::class, 'destroy'])->name('favorites.destroy');
+    Route::post('/favorites', [FavoriteShopController::class, 'store'])->name('favorites.store');
+    Route::delete('/favorites/{favorite}', [FavoriteShopController::class, 'destroy'])->name('favorites.destroy');
 });
 
 // ユーザー登録

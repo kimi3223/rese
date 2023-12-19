@@ -30,7 +30,7 @@ class ShopController extends Controller
         }
 
          // お気に入りの店舗IDを取得
-        $favoriteShopIds = auth()->user() ? auth()->user()->favorites->pluck('shop_id')->toArray() : [];
+        $favoriteShopIds = auth()->user() ? auth()->user()->favoriteShops->pluck('shop_id')->toArray() : [];
 
         // 取得したデータをビューに渡す
         $shops = $query->get();

@@ -28,7 +28,8 @@
                             <i class="fa-heart {{ $heartClass }}"></i>
                         </a>
                     @else
-                        <a href="#" class="favorite-button" data-shop-id="{{ $shop->id }}">
+                        <!-- ログアウト時のデフォルトアイコン（黒枠） -->
+                        <a href="#" class="favorite-button" data-shop-id="{{ $shop->id }}" style="color: black;">
                             <i class="fa-heart far"></i>
                         </a>
                     @endauth
@@ -54,7 +55,7 @@
                 // Ajaxを使用してお気に入りの追加をリクエスト
                 var csrfToken = $('meta[name="csrf-token"]').attr('content');
                 $.ajax({
-                    url: '{!! route('favorites.store') !!}',
+                    url: '{{ route('favorites.store') }}',
                     type: 'POST',
                     data: {
                         shop_id: shopId,

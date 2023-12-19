@@ -44,9 +44,9 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function favorites()
+    public function favoriteShops()
     {
-        return $this->belongsToMany(Shop::class, 'favorites', 'user_id', 'shop_id');
+        return $this->belongsToMany(Shop::class, 'favorite_shop', 'user_id', 'shop_id');
     }
 
     public function reservations()

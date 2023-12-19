@@ -14,20 +14,22 @@ class UserController extends Controller
     {
         // ユーザーのお気に入り店舗を取得
         $user = auth()->user();
-        $favoriteShops = $user->favorites()->with('shop')->get();
-
-        // ユーザー情報を取得
+        $favoriteShops = $user->favoriteShops()->with('shop')->get();
         $userInfo = Auth::user();
+        $reservation = Reservation::where('user_id', $user->id)->first();
+
+        $favoriteShops = $favoriteShops->map(function ($favorite) {
+        return $favorite->load('shop');
+        });
 
         // 他のショップの取得（例：すべてのショップを取得）
-        $shops = Shop::all();
-
-        $reservation = Reservation::where('user_id', $user->id)->first();
+        $allShops = Shop::all();
 
         return view('user.mypage', [
             'favoriteShops' => $favoriteShops,
             'userInfo' => $userInfo,
             'reservation' => $reservation,
+            'allShops' => $allShops,
         ]);
     }
 }

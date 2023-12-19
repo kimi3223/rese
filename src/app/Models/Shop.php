@@ -11,19 +11,18 @@ class Shop extends Model
 
     public function users()
     {
-        return $this->hasMany(User::class, 'shop_id'); // 'shop_id' は users テーブルの外部キー
+        return $this->hasMany(User::class, 'shop_id');
     }
 
     public function favoriteShops()
     {
-        return $this->belongsToMany(User::class, 'favorites', 'shop_id', 'user_id');
+        return $this->hasMany(FavoriteShop::class, 'shop_id');
     }
 
     public function shop()
     {
-        return $this->belongsTo(Shop::class, 'shop_id');
+    return $this->hasMany(FavoriteShop::class, 'shop_id');
     }
-
 
     protected $table = 'shops';
     protected $fillable = ['name', 'region', 'genre', 'description', 'image_url'];

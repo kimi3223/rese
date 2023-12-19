@@ -30,55 +30,66 @@
             <p>予約がありません。</p>
         @endif
     </div>
-
     <!-- 右半分：お気に入り店舗 -->
-    <div class="col-md-6">
-        <h4>{{ $userInfo->name }}さん</h4>
-        <h4>お気に入り店舗</h4>
-        @if($favoriteShops->isNotEmpty())
-            <div class="shop-list">
-                @foreach($favoriteShops as $favorite)
-                    <div class="shop-item" id="favorite-{{ $favorite->id }}">
-                        @if($favorite->shop && $favorite->shop->image_url)
-                            <img src="{{ $favorite->shop->image_url }}" alt="{{ $favorite->shop->name }}">
+<div class="col-md-6">
+    <h4>{{ $userInfo->name }}さん</h4>
+    <h4>お気に入り店舗</h4>
+    @if($favoriteShops->isNotEmpty())
+        <div class="shop-list">
+            @foreach($favoriteShops as $favoriteShop)
+                <div class="shop-item" id="favorite-{{ $favoriteShop->id }}">
+                    <!-- $favoriteShopは単一のFavoriteShopモデルのインスタンス -->
+                    @php
+                        $shop = $favoriteShop->shop->first(); // 修正
+                    @endphp
+
+                    @if($shop)
+                        @if($shop->image_url)
+                            <img src="{{ $shop->image_url }}" alt="{{ $shop->name }}">
                         @else
                             <p>画像なし</p>
                         @endif
                         <div class="shop-details">
-                            @if($favorite->shop && $favorite->shop->name)
-                                <h2>{{ $favorite->shop->name }}</h2>
+                            @if($shop->name)
+                                <h2>{{ $shop->name }}</h2>
                             @else
                                 <p>店舗名なし</p>
                             @endif
                             <div class="area-genre">
-                                @if($favorite->shop)
-                                    <p># {{ $favorite->shop->region }}</p>
-                                    <p># {{ $favorite->shop->genre }}</p>
+                                @if($shop->region)
+                                    <p># {{ $shop->region }}</p>
+                                @else
+                                    <p>店舗情報なし</p>
+                                @endif
+                                @if($shop->genre)
+                                    <p># {{ $shop->genre }}</p>
                                 @else
                                     <p>店舗情報なし</p>
                                 @endif
                             </div>
                             <div style="display: flex; justify-content: space-between; align-items: center;">
                                 <!-- 詳しく見るボタン -->
-                                @if($favorite->shop)
-                                    <a href="{{ route('shops.show', $favorite->shop->id) }}" style="text-decoration: none;">
-                                        <button type="button" class="btn btn-primary">詳しくみる</button>
-                                    </a>
-                                @endif
+                                <a href="{{ route('shops.detail', ['shop_id' => $shop->id]) }}" style="text-decoration: none;">
+                                    <button class="button-class">詳しくみる</button>
+                                </a>
                                 <!-- お気に入りボタン -->
-                                <a href="#" class="favorite-button" data-shop-id="{{ optional($favorite->shop)->id }}" onclick="deleteFavorite({{ $favorite->id }})">
+                                <a href="#" class="favorite-button" data-shop-id="{{ $shop->id }}" onclick="deleteFavorite({{ $favoriteShop->id }})">
                                     <i class="fas fa-heart"></i>
                                 </a>
                             </div>
                         </div>
-                    </div>
-                @endforeach
-            </div>
-        @else
-            <p>お気に入りの店舗はありません。</p>
-        @endif
-    </div>
+                        <a href="#" class="delete-favorite-link" data-favorite-id="{{ $favoriteShop->id }}">
+                            削除
+                        </a>
+                    @endif
+                </div>
+            @endforeach
+        </div>
+    @else
+        <p>お気に入りの店舗はありません。</p>
+    @endif
 </div>
+
 <script>
     function cancelReservation(reservationId) {
     if (confirm('本当に予約を取り消しますか？')) {
@@ -108,6 +119,7 @@
 </script>
 <script>
     function deleteFavorite(favoriteId) {
+    console.log('Favorite ID:', favoriteId);
         if (confirm('本当にお気に入りを削除しますか？')) {
             // Ajaxリクエストを送信
             $.ajax({
@@ -132,5 +144,18 @@
             });
         }
     }
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // お気に入り削除リンクがクリックされたときの処理
+        document.querySelectorAll('.delete-favorite-link').forEach(function (link) {
+            link.addEventListener('click', function (event) {
+                event.preventDefault();
+
+                var favoriteId = this.getAttribute('data-favorite-id');
+                deleteFavorite(favoriteId);
+            });
+        });
+    });
 </script>
 @endsection
