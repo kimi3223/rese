@@ -2,10 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\FavoriteShop;
-use App\Models\User;
-use App\Models\Shop;
+use Illuminate\Http\Request;
 
 class FavoriteShopController extends Controller
 {

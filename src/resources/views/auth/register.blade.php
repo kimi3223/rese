@@ -17,50 +17,54 @@
 </head>
 
 <style>
-    h1 {
-        margin: 0; /* マージンを無効にする */
-        background: blue;
-        padding: 5px;
-        font-size: 120%;
-        font-weight: 300;
-        color: #fff;
-        border-top-left-radius: 5px;
-        border-top-right-radius: 5px;
-    }
-    #modal-overlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: white;
-        z-index: 1000;
-        display: none;
-    }
+        h1 {
+            margin: 0; /* マージンを無効にする */
+            background: blue;
+            padding: 5px;
+            font-size: 120%;
+            font-weight: 300;
+            color: #fff;
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+        }
 
-    #modal {
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        background-color: #fff;
-        padding: 20px;
-        z-index: 1001;
-        display: none;
-        box-sizing: border-box;
-    }
+        #modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: white;
+            z-index: 1000;
+            display: none;
+        }
 
-    #back-to-home {
-        cursor: pointer;
-        font-size: 1.5em;
-        text-decoration: none;
-        color: black;
-    }
+        #modal {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #fff;
+            padding: 20px;
+            z-index: 1001;
+            display: none;
+            box-sizing: border-box;
+        }
 
-    #company-name {
-        margin-left: 10px;
-    }
-</style>
+        #back-to-home {
+            cursor: pointer;
+            font-size: 1.5em;
+            text-decoration: none;
+            color: black;
+        }
+
+        #company-name {
+            margin-left: 10px;
+            font-size: 1.5em;
+            color: blue;
+        }
+    </style>
+</head>
 
 <body>
     <header>
@@ -91,41 +95,13 @@
                     </ul>
                 </div>
             </div>
-        </div>
+            <div id="company-name">Rese</div>
+        </nav>
     </header>
-
     <!-- ページ遷移用のJavaScript -->
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script>
-        $(document).ready(function () {
-    $("#menu-toggle").click(function () {
-        $("#modal-overlay").toggle();
-        $("#modal").toggle();
-        $(".menu-btn span").toggleClass("open");
-    });
-
-    $("#modal-overlay").click(function (event) {
-        if (event.target.id === "modal-overlay") {
-            closeModal();
-        }
-    });
-
-    function closeModal() {
-        $("#modal-overlay").hide();
-        $("#modal").hide();
-        $(".menu-btn span").removeClass("open");
-    }
-
-    $("#modal a").click(function () {
-        closeModal();
-    });
-});
-
-    </script>
-
-    <!-- ページ遷移用のJavaScript -->
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <script>
+        // 以前のJavaScriptコードをそのまま残しています
         $(document).ready(function () {
             $("#menu-toggle").click(function () {
                 // モーダルを表示
@@ -133,7 +109,7 @@
                 $("#modal").toggle();
 
                 // ハンバーガーアイコンと×アイコンを切り替える
-                $(".menu-btn i").toggleClass("fa-bars fa-times");
+                $(".menu-btn span").toggleClass("open");
             });
 
             $("#close-modal").click(function () {
@@ -154,14 +130,9 @@
                 $("#modal").hide();
 
                 // ハンバーガーアイコンと×アイコンを切り替える
-                $(".menu-btn i").toggleClass("fa-bars fa-times");
+                $(".menu-btn span").toggleClass("open");
             }
-
-            // メニュー項目がクリックされたときにもモーダルを非表示にする
-            $("#modal ul.navbar-nav li.nav-item a.nav-link").click(function () {
-                closeModal();
             });
-        });
     </script>
 
     <!-- コンテンツ部分 -->

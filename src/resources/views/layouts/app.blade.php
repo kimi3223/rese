@@ -25,6 +25,7 @@
         height: 100%;
         background-color: white;
         z-index: 1000;
+        display: none;
     }
 
     #modal {
@@ -36,6 +37,7 @@
         padding: 20px;
         z-index: 1001;
         display: none;
+        box-sizing: border-box;
     }
 
     #back-to-home {
@@ -47,6 +49,8 @@
 
     #company-name {
         margin-left: 10px;
+        font-size: 1.5em;
+        color: blue;
     }
 
 </style>
@@ -54,14 +58,15 @@
 <body>
     <header>
         <nav>
-        <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+        <div style="display: flex; align-items: center; width: 100%;">
             <!-- メニューボタン（.menu-btn） -->
-            <button id="menu-toggle" style="border: none; outline: none;">
+            <button id="menu-toggle" style="border: none; outline: none; display: flex; align-items: center;">
                 <div class="menu-btn">
                     <span></span>
                 </div>
             </button>
 
+            <div id="company-name">Rese</div>
             <div style="display: flex; align-items: center;">
 
             <div class="search-box">
@@ -131,9 +136,10 @@
                         @endif
                         <!-- ここまで -->
                     </ul>
-                </nav>
+                </div>
             </div>
         </div>
+        </nav>
     </header>
 
     <!-- ページ遷移用のJavaScript -->

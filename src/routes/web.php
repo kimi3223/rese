@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ShopController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\FavoriteController;
+use App\Http\Controllers\FavoriteShopController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\ReservationController;
 
@@ -34,7 +34,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/reservations/store/{shopId}', [ReservationController::class, 'store'])->name('reservations.store');
     Route::get('/shops/show/{id}', [ShopController::class, 'show'])->name('shops.show');
     Route::delete('/reservations/{reservationId}', [ReservationController::class, 'destroy'])->name('reservations.destroy');
-    Route::post('/favorites', [FavoriteShopController::class, 'store'])->name('favorites.store');
+    Route::post('/favoriteshop/store', [FavoriteShopController::class, 'store'])->name('favoriteshop.store');
     Route::delete('/favorites/{favorite}', [FavoriteShopController::class, 'destroy'])->name('favorites.destroy');
 });
 
