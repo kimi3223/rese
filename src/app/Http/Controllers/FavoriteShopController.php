@@ -13,6 +13,7 @@ class FavoriteShopController extends Controller
         $user = auth()->user();
         $favoriteShops = $user->favoriteShops()->with('shop')->get();
 
+        dd($favoriteShops);
         return view('user.mypage', ['favoriteShops' => $favoriteShops]);
     }
 
@@ -75,14 +76,14 @@ class FavoriteShopController extends Controller
     public function addFavoriteToMyPage($favoriteId)
     {
         // お気に入りの情報を取得
-        $favorite = FavoriteShop::findOrFail($favoriteId);
+        $favorite = FavoriteShop::find($favoriteId);
 
         // ユーザー認証の確認なども行うと良いでしょう
         // ...
 
         $user = \Auth::user();
         // myPageFavorites メソッドが実装されていることを確認し、存在する場合は create を実行
-        if (method_exists($user, 'myPageFavorites')) {
+        if (!$user->myPageFavorites()->where('shop_id', $favorite->shop_id)->exists()) {
             $user->myPageFavorites()->create([
                 'shop_id' => $favorite->shop_id,
             ]);
