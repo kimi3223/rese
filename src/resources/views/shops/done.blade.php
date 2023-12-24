@@ -136,3 +136,5 @@
     </script>
     <h3>予約ありがとうございます</h3>
     <button>戻る</button>
+</body>
+</html>

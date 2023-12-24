@@ -84,13 +84,19 @@
                         <li class="nav-item active">
                             <a class="nav-link" href="/">Home <span class="sr-only"></span></a>
                         </li>
-                        <!-- 以下はログイン状態に応じて表示されるボタン -->
-                        <li class="nav-item active before-login">
-                            <a class="nav-link" href="/register">Register <span class="sr-only"></span></a>
-                        </li>
-                        <li class="nav-item active before-login">
-                            <a class="nav-link" href="/login">Login <span class="sr-only"></span></a>
-                        </li>
+                        <!-- ログインしていない場合のみ表示 -->
+                        @guest
+                            <li class="nav-item active before-login">
+                                <a class="nav-link" href="/register">Register <span class="sr-only"></span></a>
+                            </li>
+                        @endguest
+                        <!-- ここまで -->
+                        <!-- ログインしていない場合のみ表示 -->
+                        @guest
+                            <li class="nav-item active before-login">
+                                <a class="nav-link" href="/login">Login <span class="sr-only"></span></a>
+                            </li>
+                        @endguest
                         <!-- ここまで -->
                     </ul>
                 </div>
@@ -135,12 +141,11 @@
             });
     </script>
 <div style="display: flex;">
+<!-- 左半分 - 予約状況 -->
+<div style="width: 50%; padding-right: 20px;">
+    <h3>予約状況</h3>
 
-    <!-- 左半分 - 予約状況 -->
-    <div style="width: 50%; padding-right: 20px;">
-        <h3>予約状況</h3>
-
-        @if($reservation)
+    @if($reservations)
         <!-- 予約1のカード（サンプルデータ） -->
         <div style="display: flex; align-items: center; border: 1px solid #ccc; padding: 10px; background: rgb(0, 89, 255); color: white;">
             <div style="flex: 1;">
@@ -152,17 +157,20 @@
             </div>
 
             <!-- 予約を取り消すボタン -->
-            <form method="POST" action="{{ url('reservations/' . $reservation->id) }}">
-                @csrf
-                @method('DELETE')
-                <button type="submit">×</button>
-            </form>
+            @foreach($reservations as $reservation)
+                <form method="POST" action="{{ url('reservations/' . $reservation->id) }}">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit">×</button>
+                </form>
+            @endforeach
         </div>
-        @else
-            <p>予約がありません。</p>
-        @endif
-    </div>
-    <!-- 右半分：お気に入り店舗 -->
+    @else
+        <p>予約がありません。</p>
+    @endif
+</div>
+
+<!-- 右半分：お気に入り店舗 -->
 <div class="col-md-6">
     <h4>{{ $userInfo->name }}さん</h4>
     <h4>お気に入り店舗</h4>
@@ -171,12 +179,13 @@
         <div class="shop-list">
             @foreach($favoriteShops as $favoriteShop)
                 <div class="shop-item" id="favorite-{{ $favoriteShop->id }}">
-                    <!-- $favoriteShopは単一のFavoriteShopモデルのインスタンス -->
+                    <!-- 関連するShopモデルを取得 -->
                     @php
                         $shop = $favoriteShop->shop->first();
                     @endphp
 
                     @if($shop)
+                        <!-- 以下、店舗情報を表示するコードを追加 -->
                         @if($shop->image_url)
                             <img src="{{ $shop->image_url }}" alt="{{ $shop->name }}">
                         @else
@@ -211,9 +220,7 @@
                                 </a>
                             </div>
                         </div>
-                        <a href="#" class="delete-favorite-link" data-favorite-id="{{ $favoriteShop->id }}">
-                            削除
-                        </a>
+                        <!-- ここまで -->
                     @endif
                 </div>
             @endforeach
@@ -222,7 +229,6 @@
         <p>お気に入りの店舗はありません。</p>
     @endif
 </div>
-
 <script>
     function cancelReservation(reservationId) {
     if (confirm('本当に予約を取り消しますか？')) {
@@ -291,3 +297,5 @@
         });
     });
 </script>
+</body>
+</html>

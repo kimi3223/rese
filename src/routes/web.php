@@ -29,9 +29,9 @@ Route::get('/search', [ShopController::class, 'search'])->name('search');
 // 飲食店詳細表示（ログインが必要）
 Route::middleware('auth')->group(function () {
     Route::get('/detail/{shop_id}', [ShopController::class, 'detail'])->name('shops.detail');
-    Route::get('/mypage', [UserController::class, 'showMyPage']);
-    Route::get('/done', [ReservationController::class, 'showReservationDonePage']);
-    Route::post('/reservations/store/{shopId}', [ReservationController::class, 'store'])->name('reservations.store');
+    Route::get('/user/mypage', [UserController::class, 'showMyPage'])->name('user.mypage');
+    Route::get('/shops/done', [ReservationController::class, 'showReservationDonePage'])->name('shops.done');
+    Route::post('/reservations', [ReservationController::class, 'store'])->name('reservations.store');
     Route::get('/shops/show/{id}', [ShopController::class, 'show'])->name('shops.show');
     Route::delete('/reservations/{reservationId}', [ReservationController::class, 'destroy'])->name('reservations.destroy');
     Route::post('/favoriteshop/store', [FavoriteShopController::class, 'store'])->name('favoriteshop.store');

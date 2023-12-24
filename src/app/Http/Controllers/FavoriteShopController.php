@@ -13,7 +13,6 @@ class FavoriteShopController extends Controller
         $user = auth()->user();
         $favoriteShops = $user->favoriteShops()->with('shop')->get();
 
-        dd($favoriteShops);
         return view('user.mypage', ['favoriteShops' => $favoriteShops]);
     }
 

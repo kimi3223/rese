@@ -9,6 +9,10 @@ class Shop extends Model
 {
     use HasFactory;
 
+    public function reservations() {
+        return $this->hasMany(Reservation::class);
+    }
+
     public function users()
     {
         return $this->hasMany(User::class, 'shop_id');

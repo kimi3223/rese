@@ -8,26 +8,36 @@ use App\Models\Reservation;
 
 class ReservationController extends Controller
 {
-    public function store(Request $request, $shopId)
-    {
-        $validatedData = $request->validate([
-            'shop_date' => 'required|date',  // フィールド名修正
-            'shop_time' => 'required|date_format:H:i',  // フィールド名修正
-            'number_of_guests' => 'required|integer|min:1',
-        ]);
+    public function store(Request $request)
+{
+    // ユーザーがログインしているかチェック
+    if (Auth::check()) {
+        // ログインしている場合、ユーザーに関連する予約データを保存
+        $user = Auth::user();
 
+        // リクエストからデータを取得（バリデーションを無効にする）
+        $data = $request->all();
+
+        // 予約データを保存
         $reservation = new Reservation([
-            'shop_date' => $validatedData['shop_date'],
-            'shop_time' => $validatedData['shop_time'],
-            'number_of_people' => $validatedData['number_of_guests'],
-            'user_id' => Auth::id(),
-            'shop_id' => $shopId,
+            'shop_id' => $request->input('shop_id'),
+            'shop_date' => $request->input('shop_date'),
+            'shop_time' => $request->input('shop_time'),
+            'number_of_guests' => $request->input('number_of_guests'),
+            // 他に必要なデータがあれば追加
         ]);
 
-        $reservation->save();
+        // ユーザーに紐づけて保存
+        $user->reservations()->save($reservation);
 
-        return view('done');
+        return redirect()->route('shops.done')->with('success', '予約が成功しました。');
+
+    } else {
+        // ログインしていない場合の処理（ログアウト時のリダイレクトなど）
+        // 例えばログインページにリダイレクトする場合
+        return redirect()->route('login')->with('error', '予約するにはログインが必要です。');
     }
+}
 
     public function destroy(Request $request, $reservationId)
     {
@@ -39,5 +49,13 @@ class ReservationController extends Controller
         }
 
         return redirect()->route('user.mypage')->with('error', '予約の取り消しに失敗しました。');
+    }
+
+    public function showReservationDonePage()
+    {
+        // 予約が成功した後の処理を行う
+
+        // 例えば、done.blade.php ビューを表示する場合
+        return view('shops.done');
     }
 }
