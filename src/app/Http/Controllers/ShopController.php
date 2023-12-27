@@ -84,10 +84,21 @@ class ShopController extends Controller
         // $id に基づいてデータを取得
         $shop = Shop::find($shop_id);
 
+        if (!$shop) {
+        abort(404, 'ショップが見つかりません。');
+        }
+
         $shops = Shop::all();
+        $currentShopId = $shop->id;
+
+        $nextShop = Shop::where('id', '>', $currentShopId)->orderBy('id')->first();
+        $nextShopId = $nextShop ? $nextShop->id : null;
+
+        $previousShop = Shop::where('id', '<', $currentShopId)->orderBy('id', 'desc')->first();
+        $previousShopId = $previousShop ? $previousShop->id : null;
 
         // 必要に応じてビューを返す
-        return view('shops.detail', compact('shop', 'shops'));
+        return view('shops.detail', compact('shop', 'previousShopId', 'nextShopId'));
     }
 
     public function createShops()

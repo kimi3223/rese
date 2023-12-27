@@ -51,11 +51,11 @@ class ReservationController extends Controller
         return redirect()->route('user.mypage')->with('error', '予約の取り消しに失敗しました。');
     }
 
-    public function showReservationDonePage()
+    public function showReservations()
     {
-        // 予約が成功した後の処理を行う
+        $reservations = Reservation::all();
 
         // 例えば、done.blade.php ビューを表示する場合
-        return view('shops.done');
+        return view('shops.done', compact('reservations'));
     }
 }

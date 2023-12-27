@@ -87,7 +87,5 @@ class FavoriteShopController extends Controller
                 'shop_id' => $favorite->shop_id,
             ]);
         }
-
-        // 必要に応じてリダイレクトや他の処理を追加
     }
 }
