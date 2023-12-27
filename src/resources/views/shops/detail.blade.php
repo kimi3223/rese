@@ -63,17 +63,6 @@
             font-size: 1.5em;
             color: blue;
         }
-        .bracket {
-            display: inline-block;
-            background-color: white;
-            border: 1px solid black;
-            padding: 2px 5px; /* 適宜調整 */
-            border-radius: 5px; /* 角の丸みを調整 */
-        }
-
-        .bracket-content {
-            color: black;
-        }
     </style>
 </head>
 
@@ -224,8 +213,8 @@
             // フォームデータの取得
             var formData = {
                 'shop_id': $('#shop_id').val(),
-                'reservation_date': $('#reservation_date').val(),
-                'reservation_time': $('#reservation_time').val(),
+                'shop_date': $('#reservation_date').val(),
+                'shop_time': $('#reservation_time').val(),
                 'number_of_guests': $('#number_of_guests').val()
                 // 他に必要なデータがあれば追加
             };

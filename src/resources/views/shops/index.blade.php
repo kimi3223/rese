@@ -14,7 +14,7 @@
                 </div>
                 <div style="display: flex; justify-content: space-between; align-items: center;">
                     <!-- 詳しく見るボタン -->
-                    <a href="{{ route('shops.detail', ['shop_id' => $shop->id]) }}" style="text-decoration: none;">
+                    <a href="{{ route('shop.detail', ['shop_id' => $shop->id]) }}" style="text-decoration: none;">
                         <button class="button-class">詳しくみる</button>
                     </a>
                     <!-- お気に入りボタン -->

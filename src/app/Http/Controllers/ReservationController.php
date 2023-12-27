@@ -19,7 +19,7 @@ class ReservationController extends Controller
         $data = $request->all();
 
         // 予約データを保存
-        $reservation = new Reservation([
+        $reservations = new Reservation([
             'shop_id' => $request->input('shop_id'),
             'shop_date' => $request->input('shop_date'),
             'shop_time' => $request->input('shop_time'),
@@ -28,7 +28,7 @@ class ReservationController extends Controller
         ]);
 
         // ユーザーに紐づけて保存
-        $user->reservations()->save($reservation);
+        $user->reservations()->save($reservations);
 
         return redirect()->route('shops.done')->with('success', '予約が成功しました。');
 
@@ -41,21 +41,18 @@ class ReservationController extends Controller
 
     public function destroy(Request $request, $reservationId)
     {
-        $reservation = Reservation::find($reservationId);
+        $reservations = Reservation::find($reservationId);
 
-        if ($reservation) {
-            $reservation->delete();
+        if ($reservations) {
+            $reservations->delete();
             return redirect()->route('user.mypage')->with('success', '予約が取り消されました。');
         }
 
         return redirect()->route('user.mypage')->with('error', '予約の取り消しに失敗しました。');
     }
 
-    public function showReservations()
+    public function done()
     {
-        $reservations = Reservation::all();
-
-        // 例えば、done.blade.php ビューを表示する場合
-        return view('shops.done', compact('reservations'));
+        return view('shops.done'); // 'done' は表示したいビューの名前に置き換えてください
     }
 }

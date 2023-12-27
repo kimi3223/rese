@@ -181,7 +181,7 @@
                                         @endif
                                     </div>
                                     <div style="display: flex; justify-content: space-between; align-items: center;">
-                                        <a href="{{ route('shops.detail', ['shop_id' => $shop->id]) }}" style="text-decoration: none;">
+                                        <a href="{{ route('shop.detail', ['shop_id' => $shop->id]) }}" style="text-decoration: none;">
                                             <button class="button-class">詳しくみる</button>
                                         </a>
                                         <a href="#" class="favorite-button" data-shop-id="{{ $shop->id }}" onclick="deleteFavorite({{ $favoriteShop->id }})">
