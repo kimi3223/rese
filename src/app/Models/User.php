@@ -46,7 +46,7 @@ class User extends Authenticatable
 
     public function favoriteShops()
     {
-        return $this->belongsToMany(Shop::class, 'favorite_shop', 'user_id', 'shop_id');
+        return $this->hasMany(FavoriteShop::class);
     }
 
     public function reservations()

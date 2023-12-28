@@ -33,7 +33,7 @@ class UserController extends Controller
         $userInfo = Auth::user();
 
         // ユーザーの予約データを取得
-        $reservations = Reservation::where('user_id', auth()->id())->get();
+        $reservations = $user->reservations;
 
         // 他のショップの取得（例：すべてのショップを取得）
         $allShops = Shop::all();

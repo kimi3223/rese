@@ -9,7 +9,7 @@ use App\Models\Reservation;
 class ReservationController extends Controller
 {
     public function store(Request $request)
-{
+    {
     // ユーザーがログインしているかチェック
     if (Auth::check()) {
         // ログインしている場合、ユーザーに関連する予約データを保存
