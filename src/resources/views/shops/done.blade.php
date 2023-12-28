@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="http://localhost/css/login.css">
     <link rel="stylesheet" href="http://localhost/css/thanks.css">
     <link rel="stylesheet" href="http://localhost/css/detail.css">
+    <link rel="stylesheet" href="http://localhost/css/register.css">
     <link rel="stylesheet" href="http://localhost/css/done.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <!-- Include FontAwesome -->
@@ -132,9 +133,19 @@
                 // ハンバーガーアイコンと×アイコンを切り替える
                 $(".menu-btn span").toggleClass("open");
             }
+
+            // 戻るボタンをクリックしたときの処理
+        $("button").click(function () {
+            // /home にリダイレクト
+            window.location.href = "/";
             });
+        });
     </script>
-    <h3>予約ありがとうございます</h3>
-    <button>戻る</button>
+    <div class="container">
+        <div class="box">
+            <h3>予約ありがとうございます</h3>
+            <button>戻る</button>
+        </div>
+    </div>
 </body>
 </html>

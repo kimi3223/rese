@@ -41,7 +41,7 @@ class UserController extends Controller
         return view('user.mypage', [
             'favoriteShops' => $favoriteShops,
             'userInfo' => $userInfo,
-            'reservations' => $reservations, // 変数名の修正
+            'reservations' => $reservations,
             'allShops' => $allShops,
         ]);
     }

@@ -50,16 +50,8 @@ class FavoriteShopController extends Controller
         return view('favorites.index', ['favoriteShops' => $favoriteShops]);
     }
 
-    public function destroy($id)
-    {
-    // お気に入りの取得
-    $favorite = FavoriteShop::find($id);
-
-    // お気に入りが存在しない場合はエラーレスポンスを返すなど、適切な処理を追加する
-    if (!$favorite) {
-        return response()->json(['message' => 'お気に入りが見つかりません'], 404);
-    }
-
+    public function destroy(FavoriteShop $favorite)
+{
     // ログインユーザーがお気に入りを削除できるか確認
     if ($favorite->user_id !== auth()->id()) {
         return response()->json(['message' => '権限がありません'], 403);
@@ -70,7 +62,7 @@ class FavoriteShopController extends Controller
 
     // レスポンス
     return response()->json(['success' => true, 'favorite_id' => $favorite->id]);
-    }
+}
 
     public function addFavoriteToMyPage($favoriteId)
     {

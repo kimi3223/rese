@@ -231,6 +231,7 @@
                     // 成功時の処理（例: レスポンスからメッセージを表示）
                     console.log(data);
                     alert('予約が成功しました');
+                    window.location.href = '/done';
                 },
                 error: function (data) {
                     // エラー時の処理（例: レスポンスからエラーメッセージを表示）

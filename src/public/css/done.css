@@ -1,0 +1,31 @@
+body {
+    margin: 0;
+    background-color: #f8f9fa;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.box {
+    border: 2px solid white;
+    /* 枠線のスタイルを設定 */
+    padding: 20px;
+    /* 内側の余白を設定 */
+    text-align: center;
+    background-color: white;
+}
+
+h3 {
+    margin: 10px;
+}
+
+button {
+    margin: 10px;
+    background-color: blue;
+    color: white;
+}

@@ -145,7 +145,6 @@
                 <p>予約がありません。</p>
             @endif
         </div>
-
         <div class="col-md-6">
             <h4>{{ $userInfo->name }}さん</h4>
             <h4>お気に入り店舗</h4>
@@ -199,30 +198,32 @@
         </div>
     </div>
 
-    <script>
-        function deleteFavorite(favoriteId) {
-            if (confirm('本当にお気に入りを削除しますか？')) {
-                $.ajax({
-                    url: '{{ route("favoriteshop.destroy", ["favorite" => ":favoriteId"]) }}'.replace(':favoriteId', favoriteId),
-                    type: 'DELETE',
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                    },
-                    success: function(response                ) {
-                    if (response.success) {
-                        alert('お気に入りが削除されました。');
-                        // ページをリロードするか、お気に入りを表示するための別の処理を実行
-                    } else {
-                        alert('お気に入りの削除に失敗しました。');
-                    }
-                },
-                error: function(error) {
-                    // エラー時の処理
-                    alert('エラーが発生しました。');
-                },
-            });
-        }
+<script>
+    function deleteFavorite(favoriteId) {
+    if (confirm('本当にお気に入りを削除しますか？')) {
+        var url = '{{ route("favoriteshop.destroy", ":favoriteId") }}';
+        url = url.replace(':favoriteId', favoriteId);
+
+        $.ajax({
+            url: url,
+            type: 'DELETE',
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+            },
+            success: function(response) {
+                if (response.success) {
+                    alert('お気に入りが削除されました。');
+                    // ページをリロードするか、お気に入りを表示するための別の処理を実行
+                    location.reload();
+                } else {
+                    alert('お気に入りの削除に失敗しました。');
+                }
+            },
+            error: function(error) {
+                // エラー時の処理
+                alert('エラーが発生しました。');
+            },
+        });
     }
-    </script>
-</body>
-</html>
+}
+</script>
