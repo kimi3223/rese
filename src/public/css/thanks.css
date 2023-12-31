@@ -4,8 +4,25 @@
 }
 
 .card-body {
-    display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+}
+
+.card-body {
+    border: 1px solid white;
+    padding: 10px;
+    text-align: center;
+    width: 50%;
+    margin: 0 auto;
+    background-color: white;
+}
+
+.card-body a {
+    display: inline-block;
+    background-color: blue;
+    color: #fff;
+    padding: 5px 10px;
+    text-decoration: none;
+    border-radius: 10px;
+    border: none;
 }

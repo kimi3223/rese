@@ -80,7 +80,7 @@
             <!-- ハンバーガーメニューの内容 -->
             <div id="modal-overlay" style="display: none;">
                 <div id="modal" style="display: none;">
-                    <a id="back-to-home" onclick="closeModal()">×</a>
+                    <a id="back-to-home" href="#" onclick="closeModal()">×</a>
                     <ul class="navbar-nav">
                         <li class="nav-item active">
                             <a class="nav-link" href="/">Home <span class="sr-only"></span></a>
@@ -102,7 +102,15 @@
     <!-- ページ遷移用のJavaScript -->
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script>
-        // 以前のJavaScriptコードをそのまま残しています
+        function closeModal() {
+            // モーダルを非表示
+            $("#modal-overlay").hide();
+            $("#modal").hide();
+
+            // ハンバーガーアイコンと×アイコンを切り替える
+            $(".menu-btn i").toggleClass("fa-bars fa-times");
+        }
+
         $(document).ready(function () {
             $("#menu-toggle").click(function () {
                 // モーダルを表示
@@ -110,7 +118,7 @@
                 $("#modal").toggle();
 
                 // ハンバーガーアイコンと×アイコンを切り替える
-                $(".menu-btn span").toggleClass("open");
+                $(".menu-btn i").toggleClass("fa-bars fa-times");
             });
 
             $("#close-modal").click(function () {
@@ -125,19 +133,9 @@
                 }
             });
 
-            function closeModal() {
-                // モーダルを非表示
-                $("#modal-overlay").hide();
-                $("#modal").hide();
-
-                // ハンバーガーアイコンと×アイコンを切り替える
-                $(".menu-btn span").toggleClass("open");
-            }
-
-            // 戻るボタンをクリックしたときの処理
-        $("button").click(function () {
-            // /home にリダイレクト
-            window.location.href = "/";
+            // メニュー項目がクリックされたときにもモーダルを非表示にする
+            $("#modal ul.navbar-nav li.nav-item a.nav-link").click(function () {
+                closeModal();
             });
         });
     </script>

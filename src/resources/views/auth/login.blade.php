@@ -76,7 +76,7 @@
             <!-- ハンバーガーメニューの内容 -->
             <div id="modal-overlay" style="display: none;">
                 <div id="modal" style="display: none;">
-                    <a id="back-to-home" onclick="closeModal()">×</a>
+                    <a id="back-to-home" href="#" onclick="closeModal()">×</a>
                     <ul class="navbar-nav">
                         <li class="nav-item active">
                             <a class="nav-link" href="/">Home <span class="sr-only"></span></a>
@@ -96,41 +96,61 @@
         </nav>
     </header>
 
-    <!-- ページ遷移用のJavaScript -->
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script>
-        // 以前のJavaScriptコードをそのまま残しています
+        function closeModal() {
+            $("#modal-overlay").hide();
+            $("#modal").hide();
+            $(".menu-btn span").toggleClass("open");
+        }
+
         $(document).ready(function () {
             $("#menu-toggle").click(function () {
-                // モーダルを表示
                 $("#modal-overlay").toggle();
                 $("#modal").toggle();
-
-                // ハンバーガーアイコンと×アイコンを切り替える
                 $(".menu-btn span").toggleClass("open");
             });
 
             $("#close-modal").click(function () {
-                // ×アイコンをクリックしたら閉じる
                 closeModal();
             });
 
             $("#modal-overlay").click(function (event) {
-                // モーダルの外側をクリックした場合は閉じる
                 if (event.target.id === "modal-overlay") {
                     closeModal();
                 }
             });
 
-            function closeModal() {
-                // モーダルを非表示
-                $("#modal-overlay").hide();
-                $("#modal").hide();
+            // ページが読み込まれた時にログイン状態を確認して表示を変更
+            checkLoginStatus();
 
-                // ハンバーガーアイコンと×アイコンを切り替える
-                $(".menu-btn span").toggleClass("open");
+            function checkLoginStatus() {
+                const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+                updateMenuVisibility(isLoggedIn);
             }
+
+            function updateMenuVisibility(isLoggedIn) {
+                if (isLoggedIn) {
+                    $(".before-login").hide();
+                    // ログイン済みの場合、ここで他のメニューを表示する処理を追加
+                } else {
+                    $(".before-login").show();
+                }
+            }
+
+            // ログインボタンを押したときの処理
+            $("#login-button").click(function () {
+                // 本来はサーバーでのログイン処理が成功したかどうかを確認してから以下を実行するべきです
+                localStorage.setItem("isLoggedIn", "true");
+                checkLoginStatus();
             });
+
+            // ログアウトボタンを押したときの処理
+            $("#logout-button").click(function () {
+                localStorage.setItem("isLoggedIn", "false");
+                checkLoginStatus();
+            });
+        });
     </script>
 
     <!-- コンテンツ部分 -->
@@ -144,11 +164,13 @@
             </div>
             <div class="form-group">
                 <div class="iconPassword"></div>
-                <input type="password" id="password" name="password" placeholder="Password" required autocomplete="new-password">
+                <input type="password" id="password" name="password" placeholder="Password" required
+                    autocomplete="new-password">
             </div>
             <input type="submit" id="login-button" value="ログイン">
         </form>
     </div>
-    </body>
+
+</body>
 
 </html>

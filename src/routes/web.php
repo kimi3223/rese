@@ -28,6 +28,7 @@ Route::get('/search', [ShopController::class, 'search'])->name('search');
 
 // 飲食店詳細表示（ログインが必要）
 Route::middleware('auth')->group(function () {
+    Route::post('/', [ShopController::class, 'index']);
     Route::get('/shops/detail/{shop_id}', [ShopController::class, 'detail'])->name('shop.detail');
     Route::get('/mypage', [UserController::class, 'showMyPage'])->name('user.mypage');
     Route::get('/shops/done', [ReservationController::class, 'done'])->name('shops.done');
@@ -51,3 +52,4 @@ Route::post('/login', [AuthController::class, 'login']);
 
 Auth::routes();
 Route::get('/thanks', [AuthController::class, 'thanks'])->name('thanks');
+Route::post('/thanks', [AuthController::class, 'thanks'])->name('thanks');
