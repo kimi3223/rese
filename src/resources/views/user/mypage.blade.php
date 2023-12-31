@@ -74,7 +74,7 @@
             </button>
             <div id="modal-overlay" style="display: none;">
                 <div id="modal" style="display: none;">
-                    <a id="back-to-home" onclick="closeModal()">×</a>
+                    <a id="back-to-home" href="#" onclick="closeModal()">×</a>
                     <ul class="navbar-nav">
                         <li class="nav-item active">
                             <a class="nav-link" href="/">Home <span class="sr-only"></span></a>
@@ -95,31 +95,36 @@
     </header>
 
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <script>
-        $(document).ready(function () {
-            $("#menu-toggle").click(function () {
-                $("#modal-overlay").toggle();
-                $("#modal").toggle();
-                $(".menu-btn span").toggleClass("open");
-            });
+    <!-- 既存のスクリプト部分の修正 -->
+<!-- closeModal 関数をグローバルスコープに移動 -->
+<script>
+    // closeModal 関数をここに移動
+    function closeModal() {
+        $("#modal-overlay").hide();
+        $("#modal").hide();
+        $(".menu-btn span").toggleClass("open");
+    }
 
-            $("#close-modal").click(function () {
+    $(document).ready(function () {
+        $("#menu-toggle").click(function () {
+            $("#modal-overlay").toggle();
+            $("#modal").toggle();
+            $(".menu-btn span").toggleClass("open");
+        });
+
+        $("#back-to-home").click(function () {
+            // closeModal 関数を呼び出す
+            closeModal();
+        });
+
+        $("#modal-overlay").click(function (event) {
+            if (event.target.id === "modal-overlay") {
+                // closeModal 関数を呼び出す
                 closeModal();
-            });
-
-            $("#modal-overlay").click(function (event) {
-                if (event.target.id === "modal-overlay") {
-                    closeModal();
-                }
-            });
-
-            function closeModal() {
-                $("#modal-overlay").hide();
-                $("#modal").hide();
-                $(".menu-btn span").toggleClass("open");
             }
         });
-    </script>
+    });
+</script>
 
     <div style="display: flex;">
         <div style="width: 50%; padding-right: 20px;">
@@ -227,3 +232,6 @@
     }
 }
 </script>
+</body>
+
+</html>

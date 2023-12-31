@@ -63,6 +63,10 @@
             font-size: 1.5em;
             color: blue;
         }
+        #reservationDetailsContainer p {
+            margin: 5px 0; /* 余白を無効にする */
+            line-height: 1.5; /* 行の高さを調整 */
+        }
     </style>
 </head>
 
@@ -79,7 +83,7 @@
             <!-- ハンバーガーメニューの内容 -->
             <div id="modal-overlay" style="display: none;">
                 <div id="modal" style="display: none;">
-                    <a id="back-to-home" onclick="closeModal()">×</a>
+                    <a id="back-to-home" href="#" onclick="closeModal()">×</a>
                     <ul class="navbar-nav">
                         <li class="nav-item active">
                             <a class="nav-link" href="/">Home <span class="sr-only"></span></a>
@@ -157,10 +161,7 @@
 
             <!-- 予約確認 -->
             <div id="reservationDetailsContainer">
-                <p></p>
-                <div id="reservationDetails">
-                    <!-- ここに予約内容の確認を表示 -->
-                </div>
+                <!-- ここに予約内容の確認を表示 -->
             </div>
             <!-- 予約ボタン -->
             <button type="submit" id="reserveButton">予約する</button>
@@ -169,9 +170,12 @@
     <!-- ページ遷移用のJavaScript -->
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script>
-    function updateReservationDetails() {
-        console.log('updateReservationDetailsが呼ばれました');
-        // 他の処理を追加することもできます
+    // closeModal 関数をグローバルスコープに移動
+    function closeModal() {
+        // モーダルを非表示
+        $("#modal-overlay").hide();
+        $("#modal").hide();
+        $(".menu-btn span").toggleClass("open");
     }
 
     $(document).ready(function () {
@@ -196,15 +200,6 @@
                 closeModal();
             }
         });
-
-        function closeModal() {
-            // モーダルを非表示
-            $("#modal-overlay").hide();
-            $("#modal").hide();
-
-            // ハンバーガーアイコンと×アイコンを切り替える
-            $(".menu-btn span").toggleClass("open");
-        }
 
         // 予約ボタンのクリックイベント
         $("#reserveButton").click(function (e) {
@@ -247,18 +242,28 @@
         });
     });
 </script>
+
 <script>
-    // Bladeテンプレートから渡されたデータを保持する変数
-    var previousShopId = {{ $previousShopId }};
-    var nextShopId = {{ $nextShopId }};
+function updateReservationDetails() {
+    // 選択した日時と人数を取得
+    var selectedDate = $('#reservation_date').val();
+    var selectedTime = $('#reservation_time').val();
+    var numberOfGuests = $('#number_of_guests').val();
 
-    function showPreviousShop() {
-        // 一つ前の店舗の詳細ページにリダイレクト
-        window.location.href = '/shops/' + previousShopId;
-    }
+    // 予約確認を表示するエリアの要素を取得
+    var reservationDetailsContainer = $('#reservationDetailsContainer');
 
-    function showNextShop() {
-        // 一つ後の店舗の詳細ページにリダイレクト
-        window.location.href = '/shops/' + nextShopId;
-    }
+    // 店名を取得
+    var shopName = $('#shopName').text();
+
+    var detailsHtml = '<p>Shop: ' + shopName + '</p>';
+    detailsHtml += '<p>Date: ' + selectedDate + '</p>';
+    detailsHtml += '<p>Time: ' + selectedTime + '</p>';
+    detailsHtml += '<p>Number: ' + numberOfGuests + '</p>';
+
+
+    // 予約確認エリアに表示
+    reservationDetailsContainer.html(detailsHtml);
+}
+
 </script>

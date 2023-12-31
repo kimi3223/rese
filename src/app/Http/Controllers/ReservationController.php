@@ -51,7 +51,6 @@ class ReservationController extends Controller
         return redirect()->route('user.mypage')->with('error', '予約の取り消しに失敗しました。');
     }
 
-    // 予約が完了した後のコントローラのメソッド内
 
     public function done()
     {

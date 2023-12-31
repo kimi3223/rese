@@ -37,6 +37,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/favoriteshop/store', [FavoriteShopController::class, 'store'])->name('favoriteshop.store');
     Route::delete('/favoriteshop/{favorite}', [FavoriteShopController::class, 'destroy'])->name('favoriteshop.destroy');
     Route::get('/done', [ReservationController::class, 'done'])->name('reservation.done');
+    Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
+    Route::get('/logout', [AuthController::class, 'logout'])->name('logout.get');
 });
 
 // ユーザー登録
@@ -46,13 +48,6 @@ Route::post('/register', [AuthController::class, 'register']);
 // ログイン
 Route::get('/login', [AuthController::class, 'showLoginForm']);
 Route::post('/login', [AuthController::class, 'login']);
-
-Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
-    ->middleware('auth')
-    ->name('logout');
-
-Route::get('/logout', [AuthController::class, 'logout'])->name('logout.get');
-Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Auth::routes();
 Route::get('/thanks', [AuthController::class, 'thanks'])->name('thanks');
