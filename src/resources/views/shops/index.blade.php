@@ -24,7 +24,7 @@
                             $heartClass = $isFavorite ? 'fas' : 'far';
                             $heartColor = $isFavorite ? 'red' : 'black';
                         ?>
-                        <a href="#" class="favorite-button" data-shop-id="{{ $shop->id }}" style="color: {{ $heartColor }};">
+                        <a href="/" class="favorite-button" data-shop-id="{{ $shop->id }}" style="color: {{ $heartColor }};">
                             <i class="fa-heart {{ $heartClass }}"></i>
                         </a>
                     @else
@@ -38,45 +38,35 @@
         </div>
     @endforeach
 </div>
-
-<!-- JavaScriptの例（JQueryを使用） -->
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script>
-    $(document).ready(function () {
-        // お気に入りボタンのクリックイベント
-        $('.favorite-button').click(function (e) {
-            e.preventDefault();
+$(document).ready(function () {
+    $('.favorite-button').on('click', function (e) {
+        e.preventDefault();
 
-            // ログイン状態を確認
-            @auth
-                var shopId = $(this).data('shop-id');
-                var heartIcon = $(this).find('i');
+        var shopId = $(this).data('shop-id');
+        var url = '/favorite/' + shopId;
 
-                // Ajaxを使用してお気に入りの追加をリクエスト
-                var csrfToken = $('meta[name="csrf-token"]').attr('content');
-                $.ajax({
-                    url: '{{ route('favoriteshop.store') }}',
-                    type: 'POST',
-                    data: {
-                        shop_id: shopId,
-                        _token: csrfToken
-                    },
-                    success: function (data) {
-                        alert('お気に入りに追加しました！');
-
-                        // ハートの色を変更
-                        heartIcon.toggleClass('fas far');
-                        var isFavorite = heartIcon.hasClass('fas');
-                        var heartColor = isFavorite ? 'red' : 'black';
-                        heartIcon.css('color', heartColor);
-                    }
-                });
-            @else
-                // ログインしていない場合はログイン画面にリダイレクト
-                window.location.href = '{{ route('login') }}';
-            @endauth
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: {_token: $('meta[name="csrf-token"]').attr('content')},
+            success: function (data) {
+                if (data.status === 'added') {
+                    // お気に入りに追加された場合のUIの更新（ハートの色を変更など）
+                    $(e.target).css('color', 'red');
+                    // 必要に応じて追加のUIの更新
+                } else if (data.status === 'removed') {
+                    // お気に入りから削除された場合のUIの更新
+                    $(e.target).css('color', 'black');
+                    // 必要に応じて追加のUIの更新
+                }
+            },
+            error: function (data) {
+                console.log('エラー:', data);
+            }
         });
     });
+});
 </script>
-
 @endsection

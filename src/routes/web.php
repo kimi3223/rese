@@ -29,14 +29,17 @@ Route::get('/search', [ShopController::class, 'search'])->name('search');
 // 飲食店詳細表示（ログインが必要）
 Route::middleware('auth')->group(function () {
     Route::post('/', [ShopController::class, 'index']);
-    Route::get('/shops/detail/{shop_id}', [ShopController::class, 'detail'])->name('shop.detail');
+    Route::get('/shops/detail/{shop_id}', [ShopController::class, 'detail'])->name('shops.detail');
+    Route::get('/shops/{shop_id}', [ShopController::class, 'detail'])->name('shops.detail');
     Route::get('/mypage', [UserController::class, 'showMyPage'])->name('user.mypage');
     Route::get('/shops/done', [ReservationController::class, 'done'])->name('shops.done');
     Route::post('/reservations', [ReservationController::class, 'store'])->name('reservations.store');
+    Route::put('/reservations/{reservationId}', [ReservationController::class, 'update'])->name('reservations.update');
     Route::get('/shops/show/{id}', [ShopController::class, 'show'])->name('shops.show');
     Route::delete('/reservations/{reservationId}', [ReservationController::class, 'destroy'])->name('reservations.destroy');
-    Route::post('/favoriteshop/store', [FavoriteShopController::class, 'store'])->name('favoriteshop.store');
-    Route::delete('/favoriteshop/{favorite}', [FavoriteShopController::class, 'destroy'])->name('favoriteshop.destroy');
+    Route::post('/favorite/store', [FavoriteShopController::class, 'store'])->name('favorite.store');
+    Route::delete('/favorite/{favorite}', [FavoriteShopController::class, 'destroy'])->name('favorite.destroy');
+    Route::post('/favorite/{shopId}', [FavoriteShopController::class, 'toggleFavorite'])->name('favorite.toggle');
     Route::get('/done', [ReservationController::class, 'done'])->name('reservation.done');
     Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout.get');

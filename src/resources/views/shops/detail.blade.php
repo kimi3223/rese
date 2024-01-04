@@ -107,14 +107,14 @@
             <!-- 上部：＜と店舗名と＞横一列 -->
             <div style="display: flex; align-items: center;">
                 @if ($previousShopId)
-                    <a href="{{ route('shop.detail', ['shop_id' => $previousShopId]) }}">＜</a>
+                    <a href="{{ route('shops.detail', ['shop_id' => $previousShopId]) }}">＜</a>
                 @else
                     <span>＜</span>
                 @endif
                 <h2 id="shopName">{{ $shop->name }}</h2>
                 <!-- 右側ボタン -->
                 @if ($nextShopId)
-                    <a href="{{ route('shop.detail', ['shop_id' => $nextShopId]) }}">＞</a>
+                    <a href="{{ route('shops.detail', ['shop_id' => $nextShopId]) }}">＞</a>
                 @else
                     <span>＞</span>
                 @endif

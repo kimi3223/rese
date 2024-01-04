@@ -1,0 +1,34 @@
+.shop-list {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.shop-item {
+    width: 23%;
+    /* 4店舗横に並ぶように幅を設定 */
+    box-sizing: border-box;
+    padding: 10px;
+}
+
+/* 画面が小さい場合は2店舗ずつにするなど、適切に調整が必要 */
+@media screen and (max-width: 768px) {
+    .shop-item {
+        width: 50%;
+        /* 2店舗横に並ぶように幅を変更 */
+    }
+}
+
+/* クリックなどでお気に入りに追加された状態（赤いハート） */
+.fas.fa-heart.favorited {
+    color: red;
+    background-color: white;
+    /* 背景色の変更は必要に応じて行ってください */
+    border: 1px solid red;
+    /* ボーダーの色の変更は必要に応じて行ってください */
+}
+
+/* 通常の状態（黒枠の白いハート） */
+.fas.fa-heart {
+    color: black;
+    background-color: white;
+}

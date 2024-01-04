@@ -37,7 +37,7 @@ class ReservationController extends Controller
         // 例えばログインページにリダイレクトする場合
         return redirect()->route('login')->with('error', '予約するにはログインが必要です。');
     }
-}
+    }
 
     public function destroy(Request $request, $reservationId)
     {
@@ -58,4 +58,19 @@ class ReservationController extends Controller
         return view('shops.done'); // または適切なビュー名に変更
     }
 
+    public function update(Request $request, $reservationId)
+    {
+    $reservation = Reservation::findOrFail($reservationId);
+
+    $newDate = $request->input('new_date');
+    if ($newDate !== null) {
+        $reservation->update([
+            'shop_date' => $request->input('new_date'),
+            'shop_time' => $request->input('new_time'),
+            'number_of_guests' => $request->input('new_guests'),
+        ]);
+
+        return redirect('/mypage')->with('success', '予約が変更されました');
+    }
+    }
 }

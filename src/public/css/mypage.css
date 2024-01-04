@@ -1,0 +1,40 @@
+.change-reservation-form {
+    /* 追加：変更フォームのスタイル（任意のスタイルを追加） */
+    padding: 10px;
+    margin-top: 10px;
+    border: 1px solid #ccc;
+}
+
+.shop-list {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.shop-item img {
+    width: 100%;
+    /* 親要素（.shop-item）の幅いっぱいに画像を広げる */
+    height: auto;
+    /* アスペクト比を維持しつつ、高さを自動調整 */
+}
+
+/* 各お気に入り店舗情報のスタイル */
+.shop-item {
+    width: 50%;
+    /* 幅を半分に設定 */
+    box-sizing: border-box;
+    min-height: 100px;
+    /* 適切な高さに設定 */
+    overflow-y: auto;
+    /* 内容がはみ出す場合にスクロールバーを表示 */
+    padding: 10px;
+    /* 適切な余白やパディングを設定 */
+    border: 1px solid #ccc;
+    /* ボーダーを追加 */
+    margin: 5px;
+    /* 適切なマージンを設定 */
+}
+
+/* お気に入りボタンのスタイル（例） */
+.favorite-button {
+    color: white;
+}

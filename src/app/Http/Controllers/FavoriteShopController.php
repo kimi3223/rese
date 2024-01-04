@@ -51,7 +51,7 @@ class FavoriteShopController extends Controller
     }
 
     public function destroy(FavoriteShop $favorite)
-{
+    {
     // ログインユーザーがお気に入りを削除できるか確認
     if ($favorite->user_id !== auth()->id()) {
         return response()->json(['message' => '権限がありません'], 403);
@@ -62,7 +62,7 @@ class FavoriteShopController extends Controller
 
     // レスポンス
     return response()->json(['success' => true, 'favorite_id' => $favorite->id]);
-}
+    }
 
     public function addFavoriteToMyPage($favoriteId)
     {
@@ -78,6 +78,22 @@ class FavoriteShopController extends Controller
             $user->myPageFavorites()->create([
                 'shop_id' => $favorite->shop_id,
             ]);
+        }
+    }
+
+    public function toggleFavorite($shopId)
+    {
+        $user = Auth::user();
+
+        // お気に入りにすでに登録されているか確認
+        if ($user->favoriteShops()->where('shop_id', $shopId)->exists()) {
+            // お気に入りから削除
+            $user->favoriteShops()->detach($shopId);
+            return response()->json(['status' => 'removed']);
+        } else {
+            // お気に入りに追加
+            $user->favoriteShops()->attach($shopId);
+            return response()->json(['status' => 'added']);
         }
     }
 }
