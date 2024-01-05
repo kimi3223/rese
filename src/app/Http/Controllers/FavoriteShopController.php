@@ -82,18 +82,18 @@ class FavoriteShopController extends Controller
     }
 
     public function toggleFavorite($shopId)
-    {
-        $user = Auth::user();
+{
+    $user = Auth::user();
 
-        // お気に入りにすでに登録されているか確認
-        if ($user->favoriteShops()->where('shop_id', $shopId)->exists()) {
-            // お気に入りから削除
-            $user->favoriteShops()->detach($shopId);
-            return response()->json(['status' => 'removed']);
-        } else {
-            // お気に入りに追加
-            $user->favoriteShops()->attach($shopId);
-            return response()->json(['status' => 'added']);
-        }
+    // お気に入りにすでに登録されているか確認
+    if ($user->favoriteShops()->where('shop_id', $shopId)->exists()) {
+        // お気に入りから削除
+        $user->favoriteShops()->detach($shopId);
+        return response()->json(['status' => 'removed']);
+    } else {
+        // お気に入りに追加
+        $user->favoriteShops()->attach($shopId);
+        return response()->json(['status' => 'added']);
     }
+}
 }

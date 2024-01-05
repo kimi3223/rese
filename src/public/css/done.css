@@ -29,3 +29,14 @@ button {
     background-color: blue;
     color: white;
 }
+
+.menu-btn {
+    cursor: pointer;
+    height: 50px;
+    width: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: blue;
+    border-radius: 10%;
+}

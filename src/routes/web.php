@@ -30,7 +30,6 @@ Route::get('/search', [ShopController::class, 'search'])->name('search');
 Route::middleware('auth')->group(function () {
     Route::post('/', [ShopController::class, 'index']);
     Route::get('/shops/detail/{shop_id}', [ShopController::class, 'detail'])->name('shops.detail');
-    Route::get('/shops/{shop_id}', [ShopController::class, 'detail'])->name('shops.detail');
     Route::get('/mypage', [UserController::class, 'showMyPage'])->name('user.mypage');
     Route::get('/shops/done', [ReservationController::class, 'done'])->name('shops.done');
     Route::post('/reservations', [ReservationController::class, 'store'])->name('reservations.store');

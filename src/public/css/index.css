@@ -18,17 +18,29 @@
     }
 }
 
-/* クリックなどでお気に入りに追加された状態（赤いハート） */
-.fas.fa-heart.favorited {
-    color: red;
-    background-color: white;
-    /* 背景色の変更は必要に応じて行ってください */
-    border: 1px solid red;
-    /* ボーダーの色の変更は必要に応じて行ってください */
+/* ハートアイコンのスタイル */
+.fa-heart {
+    font-size: 24px;
+    /* ハートアイコンのサイズを指定 */
+    transition: color 0.3s;
+    /* カラー変化のアニメーションを追加（任意）*/
 }
 
-/* 通常の状態（黒枠の白いハート） */
-.fas.fa-heart {
+/* フォントアイコンが埋め込まれた要素のスタイル */
+.far,
+.fas {
+    font-family: 'Font Awesome 5 Free';
+    /* FontAwesomeのフォントファミリーを指定 */
+}
+
+/* 通常の状態（黒いハートの形の枠） */
+.far.fa-heart {
     color: black;
-    background-color: white;
+    /* ハートの色を黒に指定 */
+}
+
+/* お気に入りの状態（赤いハート） */
+.fas.fa-heart {
+    color: red;
+    /* ハートの色を赤に指定 */
 }

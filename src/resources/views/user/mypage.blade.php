@@ -260,6 +260,5 @@
         });
     });
 </script>
-git status
 </body>
 </html>

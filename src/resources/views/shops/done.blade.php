@@ -89,8 +89,8 @@
                         <li class="nav-item active before-login">
                             <a class="nav-link" href="/register">Register <span class="sr-only"></span></a>
                         </li>
-                        <li class="nav-item active before-login">
-                            <a class="nav-link" href="/login">Login <span class="sr-only"></span></a>
+                        <li class="nav-item active after-login">
+                            <a class="nav-link" href="/mypage">Mypage <span class="sr-only"></span></a>
                         </li>
                         <!-- ここまで -->
                     </ul>
@@ -139,10 +139,15 @@
             });
         });
     </script>
+    <script>
+        function redirectToHome() {
+            window.location.href = '/';
+        }
+    </script>
     <div class="container">
         <div class="box">
             <h3>予約ありがとうございます</h3>
-            <button>戻る</button>
+            <button onclick="redirectToHome()">戻る</button>
         </div>
     </div>
 </body>
