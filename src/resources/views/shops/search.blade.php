@@ -24,7 +24,7 @@
                                 <button class="button-class">詳しくみる</button>
                             </a>
                             <!-- お気に入りボタン -->
-                            <a href="#" class="favorite-button" data-shop-id="{{ $shop->id }}">
+                            <a class="favorite-button" data-shop-id="{{ $shop->id }}">
                                 <i class="fas fa-heart"></i>
                             </a>
                         </div>

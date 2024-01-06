@@ -9,6 +9,33 @@ class ShopController extends Controller
 {
     public function index(Request $request)
     {
+        // フォームから送信された検索条件を取得
+        $area = $request->input('region');
+        $category = $request->input('genre');
+        $keyword = $request->input('name');
+
+        // クエリビルダを使って検索条件に合致するデータを取得
+        $query = Shop::query();
+
+        if ($area && $area !== 'All area') {
+            $query->where('region', $area);
+        }
+
+        if ($category && $category !== 'All genre') {
+            $query->where('genre', $category);
+        }
+
+        if ($keyword) {
+            $query->where('name', 'like', '%' . $keyword . '%');
+        }
+
+         // お気に入りの店舗IDを取得
+        $favoriteShopIds = auth()->user() ? auth()->user()->favoriteShops->pluck('shop_id')->toArray() : [];
+
+        // 取得したデータをビューに渡す
+        $shops = $query->get();
+
+        return view('shops.index', compact('shops', 'favoriteShopIds'));
         return $this->search($request);
     }
 
