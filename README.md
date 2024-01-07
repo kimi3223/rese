@@ -1,5 +1,6 @@
 #	Rese						
-<img width="1120" alt="スクリーンショット 2024-01-05 15 23 23" src="https://github.com/kimi3223/rese/assets/139026084/a785cf5c-0f33-4639-b096-da661e831587">
+<img width="1099" alt="スクリーンショット 2024-01-07 17 49 39" src="https://github.com/kimi3223/rese/assets/139026084/ecd79278-015e-4946-952d-d6b84b192aea">
+
 							
 ##	作成目的						
 	手数料のいらない予約システムが必要のため						
