@@ -8,10 +8,8 @@
     <title>Rese</title>
     <link rel="stylesheet" href="http://localhost/css/sanitize.css">
     <link rel="stylesheet" href="http://localhost/css/app.css">
-    <link rel="stylesheet" href="http://localhost/css/login.css">
     <link rel="stylesheet" href="http://localhost/css/thanks.css">
     <link rel="stylesheet" href="http://localhost/css/detail.css">
-    <link rel="stylesheet" href="http://localhost/css/register.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <!-- Include FontAwesome -->
 </head>
@@ -84,21 +82,36 @@
             <div id="modal-overlay" style="display: none;">
                 <div id="modal" style="display: none;">
                     <a id="back-to-home" href="#" onclick="closeModal()">×</a>
-                    <ul class="navbar-nav">
-                        <li class="nav-item active">
-                            <a class="nav-link" href="/">Home <span class="sr-only"></span></a>
-                        </li>
-                        <!-- 以下はログイン状態に応じて表示されるボタン -->
-                        <li class="nav-item active before-login">
-                            <a class="nav-link" href="/register">Register <span class="sr-only"></span></a>
-                        </li>
-                        <li class="nav-item active before-login">
-                            <a class="nav-link" href="/login">Login <span class="sr-only"></span></a>
-                        </li>
-                        <!-- ここまで -->
-                    </ul>
-                </div>
-            </div>
+                        <ul class="navbar-nav">
+                            <li class="nav-item active">
+                                <a class="nav-link" href="/">Home <span class="sr-only"></span></a>
+                            </li>
+                                <!-- 以下はログイン状態に応じて表示されるボタン -->
+                            @if (Auth::check())
+                                <li class="nav-item active">
+                                    <a href="{{ route('logout') }}"
+                                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                        Logout <span class="sr-only"></span>
+                                    </a>
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                        @csrf
+                                    </form>
+                                </li>
+                                <li class="nav-item active after-login">
+                                    <a class="nav-link" href="/mypage">Mypage <span class="sr-only"></span></a>
+                                </li>
+                                @else
+                                <li class="nav-item active before-login">
+                                    <a class="nav-link" href="/register">Register <span class="sr-only"></span></a>
+                                </li>
+                                <li class="nav-item active before-login">
+                                    <a class="nav-link" href="/login">Login <span class="sr-only"></span></a>
+                                </li>
+                                @endif
+                                <!-- ここまで -->
+                            </ul>
+                        </div>
+                    </div>
             <div id="company-name">Rese</div>
         </nav>
     </header>
@@ -226,7 +239,7 @@
                     // 成功時の処理（例: レスポンスからメッセージを表示）
                     console.log(data);
                     alert('予約が成功しました');
-                    window.location.href = '/done';
+                    window.location.href = '/shops/done';
                 },
                 error: function (data) {
                     // エラー時の処理（例: レスポンスからエラーメッセージを表示）
@@ -250,20 +263,19 @@ function updateReservationDetails() {
     var selectedTime = $('#reservation_time').val();
     var numberOfGuests = $('#number_of_guests').val();
 
-    // 予約確認を表示するエリアの要素を取得
-    var reservationDetailsContainer = $('#reservationDetailsContainer');
-
     // 店名を取得
     var shopName = $('#shopName').text();
 
+    // 予約確認を表示するエリアの要素を取得
+    var reservationDetailsContainer = $('#reservationDetailsContainer');
+
+    // 予約確認の内容を組み立て
     var detailsHtml = '<p>Shop: ' + shopName + '</p>';
     detailsHtml += '<p>Date: ' + selectedDate + '</p>';
     detailsHtml += '<p>Time: ' + selectedTime + '</p>';
-    detailsHtml += '<p>Number: ' + numberOfGuests + '</p>';
-
+    detailsHtml += '<p>Number: ' + numberOfGuests + '人' + '</p>';
 
     // 予約確認エリアに表示
     reservationDetailsContainer.html(detailsHtml);
 }
-
 </script>

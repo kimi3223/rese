@@ -104,6 +104,11 @@ class ShopController extends Controller
         return view('shops.detail', compact('shop', 'previousShopId', 'nextShopId'));
     }
 
+    public function done()
+    {
+        return view('shops.done');
+    }
+
     public function createShops()
     {
         $shopData = [

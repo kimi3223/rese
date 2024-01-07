@@ -11,32 +11,27 @@ class ReservationController extends Controller
     public function store(Request $request)
     {
     // ユーザーがログインしているかチェック
-    if (Auth::check()) {
-        // ログインしている場合、ユーザーに関連する予約データを保存
-        $user = Auth::user();
+        if (Auth::check()) {
+            // ログインしている場合、ユーザーに関連する予約データを保存
+            $user = Auth::user();
 
-        // リクエストからデータを取得（バリデーションを無効にする）
-        $data = $request->all();
+            // リクエストからデータを取得（バリデーションを無効にする）
+            $data = $request->all();
 
-        // 予約データを保存
-        $reservations = new Reservation([
-            'shop_id' => $request->input('shop_id'),
-            'shop_date' => $request->input('shop_date'),
-            'shop_time' => $request->input('shop_time'),
-            'number_of_guests' => $request->input('number_of_guests'),
-            // 他に必要なデータがあれば追加
-        ]);
+            // 予約データを保存
+            $reservation = $user->reservations()->create([
+                'shop_id' => $data['shop_id'],
+                'shop_date' => $data['shop_date'],
+                'shop_time' => $data['shop_time'],
+                'number_of_guests' => $data['number_of_guests'],
+                // 他に必要なデータがあれば追加
+            ]);
 
-        // ユーザーに紐づけて保存
-        $user->reservations()->save($reservations);
+            return redirect()->route('shops.done')->with('success', '予約が成功しました。');
+        }
 
-        return redirect()->route('shops.done')->with('success', '予約が成功しました。');
-
-    } else {
-        // ログインしていない場合の処理（ログアウト時のリダイレクトなど）
-        // 例えばログインページにリダイレクトする場合
+        // ログインしていない場合の処理
         return redirect()->route('login')->with('error', '予約するにはログインが必要です。');
-    }
     }
 
     public function destroy(Request $request, $reservationId)
@@ -54,8 +49,25 @@ class ReservationController extends Controller
 
     public function done()
     {
-        // done メソッドの処理を記述
-        return view('shops.done'); // または適切なビュー名に変更
+        if (Auth::check()) {
+            $user = Auth::user();
+            $reservationCount = $user->reservations->count();
+
+            // Controller もしくは View 内で $index を定義
+        return view('user.mypage', ['reservations' => $reservations, 'index' => $index]);
+        }
+
+        // ログインしていない場合の処理
+        return redirect()->route('login')->with('error', 'ログインが必要です。');
+    }
+
+    public function getReservations()
+    {
+        $reservations = Reservation::orderBy('reservation_date', 'asc')
+        ->orderBy('reservation_time', 'asc')
+        ->get();
+
+        return view('user.mypage', ['reservations' => $reservations]);
     }
 
     public function update(Request $request, $reservationId)
@@ -63,7 +75,7 @@ class ReservationController extends Controller
     $reservation = Reservation::findOrFail($reservationId);
 
     $newDate = $request->input('new_date');
-    if ($newDate !== null) {
+    if ($newDate !== '') {
         $reservation->update([
             'shop_date' => $request->input('new_date'),
             'shop_time' => $request->input('new_time'),
@@ -71,6 +83,9 @@ class ReservationController extends Controller
         ]);
 
         return redirect('/mypage')->with('success', '予約が変更されました');
+    } else {
+        // 新しい日付が空の場合の処理を追加することも検討してください
+        return redirect('/mypage')->with('error', '新しい日付が無効です');
     }
-    }
+}
 }

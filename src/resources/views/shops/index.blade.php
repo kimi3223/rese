@@ -14,7 +14,7 @@
                 </div>
                 <div style="display: flex; justify-content: space-between; align-items: center;">
                     <!-- 詳しく見るボタン -->
-                    <a href="{{ route('shop.detail', ['shop_id' => $shop->id]) }}" style="text-decoration: none;">
+                    <a href="{{ route('shops.detail', ['shop_id' => $shop->id]) }}" style="text-decoration: none;">
                         <button class="button-class">詳しくみる</button>
                     </a>
                     <!-- お気に入りボタン -->
@@ -75,10 +75,6 @@
 
                         // クラスが 'fas' であれば 'far' に、 'far' であれば 'fas' に切り替え
                         button.toggleClass('is-favorite');
-
-                        // ハートが赤い場合はベージュに変更し、それ以外はベージュから赤に変更
-                        var buttonColor = isFavorite ? 'beige' : 'red';
-                        button.css('background-color', buttonColor);
                     }
                 });
             @else
@@ -88,5 +84,4 @@
         });
     });
 </script>
-
 @endsection
