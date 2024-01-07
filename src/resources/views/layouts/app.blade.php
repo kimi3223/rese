@@ -66,10 +66,10 @@
                     </div>
                 </button>
 
-                <div id="company-name">Rese</div>
-                <div style="display: flex; align-items: center;">
+                <div id="company-name" style="white-space: nowrap;">Rese</div>
+                <div style="display: flex; align-items: center; justify-content: space-between; width: 100%;">
 
-                    <div class="search-box">
+                    <div class="search-box" style="margin-left: auto;">
                         <form action="{{ route('search') }}" method="GET" class="search-form" style="display: contents">
                             @csrf
                             <div class="search-dropdown-container">
