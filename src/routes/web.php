@@ -42,6 +42,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/done', [ReservationController::class, 'done'])->name('reservation.done');
     Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout.get');
+    Route::view('/score', 'shops.score')->name('score');
+    Route::post('/reservations/{reservation}/rate', 'ReservationController@rate')->name('reservations.rate');
 });
 
 // ユーザー登録

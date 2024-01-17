@@ -139,6 +139,27 @@
 
                         <button type="submit">変更</button>
                     </form>
+
+                    <!-- 追加：評価ボタン -->
+                    <button class="rate-reservation-button" data-reservation-id="{{ $reservation->id }}">評価</button>
+
+                    <!-- 予約変更フォーム -->
+                    <form class="rate-reservation-form" data-reservation-id="{{ $reservation->id }}" action="{{ route('reservations.rate', ['reservation' => $reservation->id]) }}" method="post" style="display: none;">
+                        @csrf
+                        <label for="rating">評価:</label>
+                        <select id="rating" name="rating" required>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                        </select>
+
+                        <label for="review">レビュー:</label>
+                        <textarea id="review" name="review" rows="4" required></textarea>
+
+                        <button type="submit">評価する</button>
+                    </form>
                 </div>
             @endforeach
         @else
@@ -239,8 +260,8 @@
             form.show();
         });
 
-        // 予約情報を変更するボタンがクリックされたときの処理
-        $(".change-reservation-form button[type='submit']").click(function (event) {
+        // 予約情報の変更ボタンがクリックされたときの処理
+        $('.change-reservation-form button[type="submit"]').click(function (event) {
             // フォームがサブミットされるのを防ぐ
             event.preventDefault();
 
@@ -262,10 +283,46 @@
                 error: function (error) {
                     console.log('予約変更エラー:', error.responseText);
                 }
-            });
+                });
+                // 予約情報の変更フォームを非表示
+                form.hide();
+        });
 
-            // 予約情報の変更フォームを非表示
-            form.hide();
+        // 評価ボタンをクリックしたときの処理
+        $('.rate-reservation-button').click(function () {
+            var reservationId = $(this).data('reservation-id');
+            var form = $(".rate-reservation-form[data-reservation-id='" + reservationId + "']");
+
+            // 評価フォームを表示
+            form.show();
+        });
+
+        // 評価フォームを閉じるボタンがクリックされたときの処理
+        $(".rate-reservation-form button[type='submit']").click(function (event) {
+            // フォームがサブミットされるのを防ぐ
+            event.preventDefault();
+
+            // 対象のフォームを取得
+            var form = $(this).closest(".rate-reservation-form");
+
+            // Ajaxリクエストを使ってフォームをサブミット
+            $.ajax({
+                type: form.attr('method'),
+                url: form.attr('action'),
+                data: form.serialize(),
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function (response) {
+                    // 成功したらマイページにリダイレクト
+                    window.location.href = "/mypage";
+                },
+                error: function (error) {
+                    console.log('評価エラー:', error.responseText);
+                }
+                });
+                // 評価フォームを非表示
+                form.hide();
         });
     });
 </script>

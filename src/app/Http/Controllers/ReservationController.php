@@ -72,14 +72,21 @@ class ReservationController extends Controller
 
     public function update(Request $request, $reservationId)
     {
-    $reservation = Reservation::findOrFail($reservationId);
+        $reservation = Reservation::findOrFail($reservationId);
 
     $newDate = $request->input('new_date');
+
+    // 新しい評価データ
+    $rating = $request->input('rating');
+    $review = $request->input('review');
+
     if ($newDate !== '') {
         $reservation->update([
-            'shop_date' => $request->input('new_date'),
+            'shop_date' => $newDate,
             'shop_time' => $request->input('new_time'),
             'number_of_guests' => $request->input('new_guests'),
+            'rating' => $rating, // 新しい評価データを追加
+            'review' => $review, // 新しい評価データを追加
         ]);
 
         return redirect('/mypage')->with('success', '予約が変更されました');
@@ -87,5 +94,18 @@ class ReservationController extends Controller
         // 新しい日付が空の場合の処理を追加することも検討してください
         return redirect('/mypage')->with('error', '新しい日付が無効です');
     }
-}
+    }
+    public function show($reservationId)
+    {
+            $reservation = Reservation::findOrFail($reservationId);
+
+            return view('reservations.show', compact('reservation'));
+    }
+
+    public function edit($reservationId)
+    {
+        $reservation = Reservation::findOrFail($reservationId);
+
+        return view('reservations.edit', compact('reservation'));
+    }
 }

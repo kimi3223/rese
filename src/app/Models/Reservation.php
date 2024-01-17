@@ -15,6 +15,8 @@ class Reservation extends Model
         'shop_date',
         'shop_time',
         'number_of_guests',
+        'rating',
+        'review',
     ];
 
     // リレーション定義
