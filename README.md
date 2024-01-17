@@ -1,5 +1,6 @@
 #	Rese						
-<img width="1120" alt="スクリーンショット 2024-01-05 15 23 23" src="https://github.com/kimi3223/rese/assets/139026084/a785cf5c-0f33-4639-b096-da661e831587">
+<img width="1099" alt="スクリーンショット 2024-01-07 17 49 39" src="https://github.com/kimi3223/rese/assets/139026084/ecd79278-015e-4946-952d-d6b84b192aea">
+
 							
 ##	作成目的						
 	手数料のいらない予約システムが必要のため						
@@ -38,7 +39,8 @@
 	開発環境管理:Composer2.1 (PHP のパッケージ管理)npm (Node.js のパッケージ管理)Git2.x (バージョン管理)						
 							
 ##	テーブル設計						
-<img width="334" alt="スクリーンショット 2024-01-05 15 29 25" src="https://github.com/kimi3223/rese/assets/139026084/8e9790fe-007c-424f-a555-1cf212ef3397">							
+<img width="876" alt="スクリーンショット 2024-01-07 17 46 27" src="https://github.com/kimi3223/rese/assets/139026084/e0fd3af8-9c9b-44fd-a2bd-cd22fbab34ee">
+							
 							
 ##	ER図						
 <img width="369" alt="スクリーンショット 2024-01-05 15 29 40" src="https://github.com/kimi3223/rese/assets/139026084/28b2d00b-c78b-4426-987a-fc5e4a37c88f">
