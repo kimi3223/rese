@@ -10,23 +10,22 @@ class Reservation extends Model
     use HasFactory;
 
     protected $fillable = [
+        'date',
+        'time',
+        'user_num',
         'user_id',
-        'shop_id',
-        'shop_date',
-        'shop_time',
-        'number_of_guests',
-        'rating',
-        'review',
+        'shop_id'
     ];
-
-    // リレーション定義
-    public function user()
+    public static function postReservation($request, $shop_id)
     {
-        return $this->belongsTo(User::class);
-    }
-
-    public function shop()
-    {
-        return $this->belongsTo(Shop::class, 'shop_id');
+        $param = [
+            "date" => $request->date,
+            "time" => $request->time,
+            "user_num" => $request->user_num,
+            "user_id" => $request->user_id,
+            "shop_id" => $shop_id,
+        ];
+        $reservation = Reservation::create($param);
+        return $reservation;
     }
 }
