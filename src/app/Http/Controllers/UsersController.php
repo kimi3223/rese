@@ -12,6 +12,6 @@ class UsersController extends Controller
     {
         $user = User::find(Auth::id())->with('reservations', 'likes.area', 'likes.genre', 'likes.likes')->first();
 
-        return view('/mypage', compact("user"));
+        return view('mypage', compact("user"));
     }
 }
