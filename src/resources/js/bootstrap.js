@@ -1,9 +1,13 @@
 window._ = require('lodash');
 
+try {
+    require('bootstrap');
+} catch (e) {}
+
 /**
- * リクエストを簡単に発行できるようにする axios HTTP ライブラリをロードします
- * Laravel バックエンドに。このライブラリは、
- * 「XSRF」トークン Cookie の値に基づくヘッダーとしての CSRF トークン。
+ * We'll load the axios HTTP library which allows us to easily issue requests
+ * to our Laravel back-end. This library automatically handles sending the
+ * CSRF token as a header based on the value of the "XSRF" token cookie.
  */
 
 window.axios = require('axios');
@@ -11,18 +15,18 @@ window.axios = require('axios');
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 /**
- * Echo は、チャンネルに登録してリスニングするための表現力豊かな API を公開します
- * Laravel によってブロードキャストされるイベントの場合。エコーとイベント放送
- * チームは堅牢なリアルタイム Web アプリケーションを簡単に構築できます。
+ * Echo exposes an expressive API for subscribing to channels and listening
+ * for events that are broadcast by Laravel. Echo and event broadcasting
+ * allows your team to easily build robust real-time web applications.
  */
 
-// 'laravel-echo' から Echo をインポートします。
+// import Echo from 'laravel-echo';
 
 // window.Pusher = require('pusher-js');
 
 // window.Echo = new Echo({
-// ブロードキャスター: 'プッシャー',
-// キー: process.env.MIX_PUSHER_APP_KEY,
-// クラスター: process.env.MIX_PUSHER_APP_CLUSTER,
-//forceTLS: true
+//     broadcaster: 'pusher',
+//     key: process.env.MIX_PUSHER_APP_KEY,
+//     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
+//     forceTLS: true
 // });
